@@ -13,7 +13,7 @@ class OrdersTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-        $limit = 10;
+        $limit = 30;
 
         for ($i = 0; $i < $limit; $i++) {
             DB::table('orders')->insert([
@@ -22,7 +22,7 @@ class OrdersTableSeeder extends Seeder
                 'phone' => $faker->phoneNumber,
                 'description' => $faker->realText(rand(40,200)),
                 'subject' => $faker->realText(rand(20,30)),
-                'status' => 'Новая',
+                'status' => 'Новая заявка',
                 'url' => $faker->url,
                 'utm' => $faker->realText(rand(20,30)),
                 'date' => $faker->dateTime($max = 'now')

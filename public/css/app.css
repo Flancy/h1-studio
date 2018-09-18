@@ -10481,6 +10481,12 @@ a.text-dark:focus {
 .modal-h1 .table td {
   vertical-align: middle;
 }
+.modal-h1 .modal-footer {
+  -webkit-box-pack: center;
+  -o-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
 .orders .input-group-text {
   -webkit-box-pack: center;
   -o-box-pack: center;
@@ -10498,4 +10504,10 @@ a.text-dark:focus {
 .orders td,
 .orders th {
   vertical-align: middle;
+}
+.orders .pagination {
+  -webkit-box-pack: center;
+  -o-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }

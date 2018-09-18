@@ -20267,15 +20267,22 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_axios___default.a, __WEBPACK_IMPORTED_MO
 
 Vue.component('example-component', __webpack_require__(217));
 //Заявки
+Vue.component('order-index', __webpack_require__(229));
 Vue.component('order-info', __webpack_require__(220));
 Vue.component('order-status', __webpack_require__(223));
+Vue.component('order-delete', __webpack_require__(232));
 
 var app = new Vue({
     el: '#app',
     data: function data() {
         return {
+            page: 1,
             orders: {
+                deleteOrders: [],
+                orders: [],
+                from: null,
                 orderInfo: {
+                    "id": "",
                     "status": "",
                     "subject": "",
                     "name": "",
@@ -20285,10 +20292,19 @@ var app = new Vue({
                     "url": '',
                     "utm": '',
                     "date": ''
-                },
-                showOrderAlert: false
+                }
             }
         };
+    },
+    created: function created() {
+        var th = this;
+        this.page = window.location.search;
+        __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/orders/' + this.page).then(function (response) {
+            th.orders.orders = response.data.data;
+            th.orders.from = response.data.from;
+        }).catch(function (error) {
+            console.log(error);
+        });
     },
 
     methods: {
@@ -20296,6 +20312,7 @@ var app = new Vue({
         getOrderInfo: function getOrderInfo(id) {
             var th = this;
             __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/orders/' + id).then(function (response) {
+                th.orders.orderInfo.id = response.data.id;
                 th.orders.orderInfo.status = response.data.status;
                 th.orders.orderInfo.subject = response.data.subject;
                 th.orders.orderInfo.name = response.data.name;
@@ -20306,6 +20323,21 @@ var app = new Vue({
                 th.orders.orderInfo.utm = response.data.utm;
                 th.orders.orderInfo.date = response.data.date;
             });
+        },
+        saveDeleteOrder: function saveDeleteOrder(evt) {
+            if (evt.target.checked === true) {
+                this.orders.deleteOrders.push(evt.target.value);
+            } else {
+                this.orders.deleteOrders.remove(evt.target.value);
+            }
+        },
+
+        //Модальные окна
+        closeModalOrder: function closeModalOrder() {
+            this.$root.$emit('bv::hide::modal', 'modal-order');
+        },
+        closeModalOrderAlert: function closeModalOrderAlert() {
+            this.$root.$emit('bv::hide::modal', 'modal-order-alert');
         }
     }
 });
@@ -20325,9 +20357,9 @@ window.Popper = __webpack_require__(13).default;
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(37);
+    window.$ = window.jQuery = __webpack_require__(37);
 
-  __webpack_require__(80);
+    __webpack_require__(80);
 } catch (e) {}
 
 /**
@@ -20349,9 +20381,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
 /**
@@ -20370,6 +20402,16 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+
+Array.prototype.remove = function (value) {
+    var idx = this.indexOf(value);
+    if (idx != -1) {
+        // Второй параметр - число элементов, которые необходимо удалить
+        return this.splice(idx, 1);
+    }
+    return false;
+};
 
 /***/ }),
 /* 78 */
@@ -64611,6 +64653,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
        props: ["orders"]
@@ -64628,52 +64671,63 @@ var render = function() {
     _c("tbody", [
       _c("tr", [
         _vm._m(0),
-        _c("td", [_vm._v(_vm._s(_vm.orders.orderInfo.status))])
+        _c("td", [_vm._v(_vm._s(_vm.orders.orderInfo.id))])
       ]),
       _vm._v(" "),
       _c("tr", [
         _vm._m(1),
-        _c("td", [_vm._v(_vm._s(_vm.orders.orderInfo.subject))])
+        _c("td", [_vm._v(_vm._s(_vm.orders.orderInfo.status))])
       ]),
       _vm._v(" "),
       _c("tr", [
         _vm._m(2),
-        _c("td", [_vm._v(_vm._s(_vm.orders.orderInfo.name))])
+        _c("td", [_vm._v(_vm._s(_vm.orders.orderInfo.subject))])
       ]),
       _vm._v(" "),
       _c("tr", [
         _vm._m(3),
-        _c("td", [_vm._v(_vm._s(_vm.orders.orderInfo.email))])
+        _c("td", [_vm._v(_vm._s(_vm.orders.orderInfo.name))])
       ]),
       _vm._v(" "),
       _c("tr", [
         _vm._m(4),
-        _c("td", [_vm._v(_vm._s(_vm.orders.orderInfo.phone))])
+        _c("td", [_vm._v(_vm._s(_vm.orders.orderInfo.email))])
       ]),
       _vm._v(" "),
       _c("tr", [
         _vm._m(5),
-        _c("td", [_vm._v(_vm._s(_vm.orders.orderInfo.description))])
+        _c("td", [_vm._v(_vm._s(_vm.orders.orderInfo.phone))])
       ]),
       _vm._v(" "),
       _c("tr", [
         _vm._m(6),
-        _c("td", [_vm._v(_vm._s(_vm.orders.orderInfo.url))])
+        _c("td", [_vm._v(_vm._s(_vm.orders.orderInfo.description))])
       ]),
       _vm._v(" "),
       _c("tr", [
         _vm._m(7),
-        _c("td", [_vm._v(_vm._s(_vm.orders.orderInfo.utm))])
+        _c("td", [_vm._v(_vm._s(_vm.orders.orderInfo.url))])
       ]),
       _vm._v(" "),
       _c("tr", [
         _vm._m(8),
+        _c("td", [_vm._v(_vm._s(_vm.orders.orderInfo.utm))])
+      ]),
+      _vm._v(" "),
+      _c("tr", [
+        _vm._m(9),
         _c("td", [_vm._v(_vm._s(_vm.orders.orderInfo.date))])
       ])
     ])
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("b", [_vm._v("ID заявки:")])])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -64800,34 +64854,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ["orderId"],
+	props: ["orderStatus", "orderId"],
 	data: function data() {
 		return {
 			orderStatusOptionSelected: 'Новая заявка',
 			orderStatusOption: [{ value: 'Новая заявка', text: 'Новая заявка' }, { value: 'В обработке', text: 'В обработке' }, { value: 'Не корректная', text: 'Не корректная' }]
 		};
 	},
-	mounted: function mounted() {
+	created: function created() {
 		this.init();
 	},
 
 	methods: {
 		init: function init() {
-			var th = this;
-			axios.get('/orders/' + th.orderId).then(function (response) {
-				th.orderStatusOptionSelected = response.data.status;
-			}).catch(function (error) {
-				console.log(error);
-			});
+			this.orderStatusOptionSelected = this.orderStatus;
 		},
 		changeStatus: function changeStatus(evt, orderId) {
+			var _this = this;
+
 			var th = this,
 			    id = this.orderId,
 			    status = evt.target.value;
 			axios.put('/orders/' + id, {
 				id: id,
 				status: status
-			}).then(function (response) {}).catch(function (error) {
+			}).then(function (response) {
+				_this.$root.$emit('bv::show::modal', 'modal-order-alert');
+			}).catch(function (error) {
 				console.log(error);
 			});
 		}
@@ -64879,6 +64932,364 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 227 */,
+/* 228 */,
+/* 229 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(36)
+/* script */
+var __vue_script__ = __webpack_require__(230)
+/* template */
+var __vue_template__ = __webpack_require__(231)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/Orders/OrderIndexComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0ca38c1a", Component.options)
+  } else {
+    hotAPI.reload("data-v-0ca38c1a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 230 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+       props: ["orders", "getOrderInfo", "saveDeleteOrder"],
+       methods: {
+              getOrderIndex: function getOrderIndex(index) {
+                     var i = this.orders.from;
+                     i = this.orders.from + index;
+                     return i;
+              }
+       }
+});
+
+/***/ }),
+/* 231 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("table", { staticClass: "table table-bordered" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "tbody",
+      _vm._l(_vm.orders.orders, function(order, index) {
+        return _c("tr", [
+          _c("th", { staticClass: "th-center" }, [
+            _vm._v(_vm._s(_vm.getOrderIndex(index)))
+          ]),
+          _vm._v(" "),
+          _c("td", [_vm._v(_vm._s(order.email))]),
+          _vm._v(" "),
+          _c("td", [_vm._v(_vm._s(order.name))]),
+          _vm._v(" "),
+          _c(
+            "td",
+            [
+              _c("order-status", {
+                attrs: { "order-status": order.status, "order-id": order.id }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("td", [
+            _c("div", { staticClass: "input-group-text text" }, [
+              _c("input", {
+                staticClass: "order-checkbox",
+                attrs: { type: "checkbox" },
+                domProps: { value: order.id },
+                on: { click: _vm.saveDeleteOrder }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "td",
+            [
+              _c(
+                "b-btn",
+                {
+                  directives: [
+                    {
+                      name: "b-modal",
+                      rawName: "v-b-modal.modal-order",
+                      modifiers: { "modal-order": true }
+                    }
+                  ],
+                  attrs: { variant: "outline-info" },
+                  on: {
+                    click: function($event) {
+                      _vm.getOrderInfo(order.id)
+                    }
+                  }
+                },
+                [_vm._v("Подробнее")]
+              )
+            ],
+            1
+          )
+        ])
+      })
+    ),
+    _vm._v(" "),
+    _c("tfoot", [
+      _c("td", { attrs: { colspan: "4" } }),
+      _vm._v(" "),
+      _c(
+        "td",
+        [
+          _c("order-delete", {
+            attrs: {
+              "delete-orders": _vm.orders.deleteOrders,
+              orders: _vm.orders.orders
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("td")
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", { staticClass: "th-center" }, [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("E-mail")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Дата")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Статус")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "th-center" }, [_vm._v("Выбрать")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "th-center" }, [_vm._v("Подробнее")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0ca38c1a", module.exports)
+  }
+}
+
+/***/ }),
+/* 232 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(36)
+/* script */
+var __vue_script__ = __webpack_require__(233)
+/* template */
+var __vue_template__ = __webpack_require__(234)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/Orders/OrderDeleteComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-56bc4153", Component.options)
+  } else {
+    hotAPI.reload("data-v-56bc4153", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 233 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ["deleteOrders", "orders"],
+	data: function data() {
+		return {
+			selected: null,
+			options: [{ value: null, text: 'Выбрать' }, { value: 'Удалить', text: 'Удалить выбранное' }]
+		};
+	},
+
+	methods: {
+		deleteOrdersTrash: function deleteOrdersTrash(evt) {
+			var th = this;
+			if (evt.target.value == 'Удалить') {
+				th.deleteOrders.forEach(function (item, i) {
+					axios.delete('/orders/' + item).then(function (response) {
+						th.orders.splice(item - 1, 1);
+					}).catch(function (error) {
+						console.log(error);
+					});
+				});
+				th.deleteOrders.splice(0, th.deleteOrders.length);
+				var delet = document.getElementsByClassName("order-checkbox");
+				for (var i = 0; i < delet.length; i++) {
+					delet[i].checked = false;
+				}
+			}
+		}
+	}
+});
+
+/***/ }),
+/* 234 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("b-form-select", {
+    attrs: { options: _vm.options, size: "md" },
+    nativeOn: {
+      change: function($event) {
+        return _vm.deleteOrdersTrash($event)
+      }
+    },
+    model: {
+      value: _vm.selected,
+      callback: function($$v) {
+        _vm.selected = $$v
+      },
+      expression: "selected"
+    }
+  })
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-56bc4153", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

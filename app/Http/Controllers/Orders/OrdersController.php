@@ -15,9 +15,12 @@ class OrdersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $orders = DB::table('orders')->paginate(5);
+        $orders = DB::table('orders')->paginate(10);
+        if($request->ajax()){
+            return Response::json($orders);
+        }
         
         return view('orders.index', ['orders' => $orders]);
     }
@@ -94,8 +97,13 @@ class OrdersController extends Controller
      * @param  \App\orders  $orders
      * @return \Illuminate\Http\Response
      */
-    public function destroy(orders $orders)
+    public function destroy(Request $request, $id, orders $orders)
     {
-        //
+        $order = $orders->find($id);
+        $order = $order->delete();
+
+        if($request->ajax()){
+            return Response::json($order);
+        }
     }
 }

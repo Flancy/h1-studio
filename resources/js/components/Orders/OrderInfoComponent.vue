@@ -1,6 +1,7 @@
 <template>
 	<table class="table table-bordered">
 	    <tbody>
+			<tr><td><b>ID заявки:</b></td><td>{{ orders.orderInfo.id }}</td></tr>
 			<tr><td><b>Статус заявки:</b></td><td>{{ orders.orderInfo.status }}</td></tr>
 		    <tr><td><b>Тема заявки:</b></td><td>{{ orders.orderInfo.subject }}</td></tr>
 		    <tr><td><b>Имя:</b></td><td>{{ orders.orderInfo.name }}</td></tr>

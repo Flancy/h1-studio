@@ -24,15 +24,22 @@ Vue.use(VueAxios, axios);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 //Заявки
+Vue.component('order-index', require('./components/Orders/OrderIndexComponent.vue'));
 Vue.component('order-info', require('./components/Orders/OrderInfoComponent.vue'));
 Vue.component('order-status', require('./components/Orders/OrderStatusComponent.vue'));
+Vue.component('order-delete', require('./components/Orders/OrderDeleteComponent.vue'));
 
 const app = new Vue({
     el: '#app',
     data () {
     	return {
+            page: 1,
             orders: {
+                deleteOrders: [],
+                orders: [],
+                from: null,
                 orderInfo: {
+                    "id": "",
                     "status": "",
                     "subject": "",
                     "name": "",
@@ -43,16 +50,28 @@ const app = new Vue({
                     "utm": '',
                     "date": '',
                 },
-                showOrderAlert: false
             },
     	}
+    },
+    created () {
+        let th = this;
+        this.page = window.location.search;
+        axios.get('/orders/'+this.page)
+            .then(response => {
+                th.orders.orders = response.data.data;
+                th.orders.from = response.data.from;
+            })
+            .catch(error => {
+                console.log(error);
+            })
     },
     methods: {
         //Заявки
     	getOrderInfo(id) {
-    		const th = this;
+    		let th = this;
     		axios.get('/orders/'+id)
-	    		.then(function(response) {
+	    		.then(response => {
+                    th.orders.orderInfo.id = response.data.id;
 	    			th.orders.orderInfo.status = response.data.status;
 			    	th.orders.orderInfo.subject = response.data.subject;
 			    	th.orders.orderInfo.name = response.data.name;
@@ -64,5 +83,19 @@ const app = new Vue({
 			    	th.orders.orderInfo.date = response.data.date;
 	    		});
     	},
+        saveDeleteOrder (evt) {
+            if(evt.target.checked === true) {
+                this.orders.deleteOrders.push(evt.target.value);
+            } else {
+                this.orders.deleteOrders.remove(evt.target.value);
+            }
+        },
+        //Модальные окна
+        closeModalOrder() {
+            this.$root.$emit('bv::hide::modal','modal-order');
+        },
+        closeModalOrderAlert() {
+            this.$root.$emit('bv::hide::modal','modal-order-alert');
+        },
     },
 });

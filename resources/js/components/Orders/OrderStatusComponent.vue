@@ -8,6 +8,7 @@
 <script>
 export default {
 	props: [
+		"orderStatus",
 		"orderId"
 	],
 	data () {
@@ -20,19 +21,12 @@ export default {
 			]
 		}
 	},
-	mounted () {
+	created () {
 		this.init()
 	},
 	methods: {
 		init(){
-			const th = this;
-			axios.get('/orders/'+th.orderId)
-                .then(function(response) {
-                    th.orderStatusOptionSelected = response.data.status;
-                })
-                .catch(function(error) {
-					console.log(error);
-				});
+			this.orderStatusOptionSelected = this.orderStatus;
 		},
 		changeStatus(evt, orderId) {
             const th = this, 
@@ -42,10 +36,10 @@ export default {
             		id: id,
             		status: status
             	})
-                .then(function(response) {
-                	
+                .then(response => {
+                	this.$root.$emit('bv::show::modal','modal-order-alert')
                 })
-                .catch(function(error) {
+                .catch(error => {
 					console.log(error);
 				});
         },
