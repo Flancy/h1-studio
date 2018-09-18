@@ -12,4 +12,10 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+   .stylus('resources/stylus/app.styl', 'public/css', {
+	    use: [
+	        require('rupture')(),
+	        require('nib')()
+	    ]
+	})
+   .browserSync('h1-studio.ru');

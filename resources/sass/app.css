@@ -510,7 +510,7 @@ mark,
 }
 
 .blockquote-footer::before {
-  content: "\2014     \A0";
+  content: "\2014   \A0";
 }
 
 .img-fluid {
@@ -10477,25 +10477,3 @@ a.text-dark:focus {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-.modal-h1 .table th,
-.modal-h1 .table td {
-  vertical-align: middle;
-}
-.orders .input-group-text {
-  -webkit-box-pack: center;
-  -o-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  background: transparent;
-  border: none;
-}
-.orders .th-center {
-  text-align: center;
-}
-.orders .btn {
-  width: 100%;
-}
-.orders td,
-.orders th {
-  vertical-align: middle;
-}
