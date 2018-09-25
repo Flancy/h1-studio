@@ -28,6 +28,9 @@ Vue.component('order-index', require('./components/Orders/OrderIndexComponent.vu
 Vue.component('order-info', require('./components/Orders/OrderInfoComponent.vue'));
 Vue.component('order-status', require('./components/Orders/OrderStatusComponent.vue'));
 Vue.component('order-delete', require('./components/Orders/OrderDeleteComponent.vue'));
+//Новости
+Vue.component('article-index', require('./components/Articles/ArticlesIndexComponent.vue'));
+Vue.component('article-info', require('./components/Articles/ArticlesInfoComponent.vue'));
 
 const app = new Vue({
     el: '#app',
@@ -51,6 +54,7 @@ const app = new Vue({
                     "date": '',
                 },
             },
+            article: {},
     	}
     },
     created () {
@@ -63,7 +67,7 @@ const app = new Vue({
             })
             .catch(error => {
                 console.log(error);
-            })
+            });
     },
     methods: {
         //Заявки
@@ -90,12 +94,23 @@ const app = new Vue({
                 this.orders.deleteOrders.remove(evt.target.value);
             }
         },
+        //Новости
+        getArticlesInfo (id) {
+            let th = this;
+            axios.get('/articles/'+id)
+                .then(response => {
+                    th.article = response.data;
+                });
+        },
         //Модальные окна
         closeModalOrder() {
             this.$root.$emit('bv::hide::modal','modal-order');
         },
         closeModalOrderAlert() {
             this.$root.$emit('bv::hide::modal','modal-order-alert');
+        },
+        closeModalArticle() {
+            this.$root.$emit('bv::hide::modal','modal-article');
         },
     },
 });

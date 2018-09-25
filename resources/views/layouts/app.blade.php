@@ -51,6 +51,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('orders.index') }}">Заявки</a>
+                                    <a class="dropdown-item" href="{{ route('articles.index') }}">Новости</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

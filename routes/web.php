@@ -21,3 +21,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Заявки
 Route::resource('orders', 'Orders\OrdersController');
+
+//Новости
+Route::resource('articles', 'Articles\ArticlesController');

@@ -10483,15 +10483,13 @@ a.text-dark:focus {
 }
 .modal-h1 .modal-footer {
   -webkit-box-pack: center;
-  -o-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 .orders .input-group-text {
   -webkit-box-pack: center;
-  -o-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   background: transparent;
   border: none;
 }
@@ -10507,7 +10505,29 @@ a.text-dark:focus {
 }
 .orders .pagination {
   -webkit-box-pack: center;
-  -o-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.articles .card-header {
+  text-align: center;
+}
+.articles .card-date {
+  margin-bottom: 0;
+}
+.articles .card-footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.articles .card-footer div {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+.articles h3 {
+  margin-bottom: 0;
+  font-size: 20px;
 }

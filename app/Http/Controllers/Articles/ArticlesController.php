@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Orders;
+namespace App\Http\Controllers\Articles;
 
-use App\Orders;
+use App\Articles;
 use Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class OrdersController extends Controller
+class ArticlesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,12 +17,12 @@ class OrdersController extends Controller
      */
     public function index(Request $request)
     {
-        $orders = DB::table('orders')->paginate(10);
+        $articles = DB::table('articles')->paginate(9);
         if($request->ajax()){
-            return Response::json($orders);
+            return Response::json($articles);
         }
         
-        return view('orders.index', ['orders' => $orders]);
+        return view('articles.index', ['articles' => $articles]);
     }
 
     /**
@@ -49,25 +49,25 @@ class OrdersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\orders  $orders
+     * @param  \App\Articles  $articles
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id, Orders $orders)
+    public function show(Request $request, $id,Articles $articles)
     {
-        $order = $orders->find($id);
+        $articles = $articles->find($id);
 
         if($request->ajax()){
-            return Response::json($order);
+            return Response::json($articles);
         }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\orders  $orders
+     * @param  \App\Articles  $articles
      * @return \Illuminate\Http\Response
      */
-    public function edit(Orders $orders)
+    public function edit(Articles $articles)
     {
         //
     }
@@ -76,34 +76,22 @@ class OrdersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\orders  $orders
+     * @param  \App\Articles  $articles
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Orders $orders)
+    public function update(Request $request, Articles $articles)
     {
-        $order = $orders->find($request->id);
-        $order->status = $request->status;
-        
-        $order->save();
-
-        if($request->ajax()){
-            return Response::json($order);
-        }
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\orders  $orders
+     * @param  \App\Articles  $articles
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id, Orders $orders)
+    public function destroy(Articles $articles)
     {
-        $order = $orders->find($id);
-        $order = $order->delete();
-
-        if($request->ajax()){
-            return Response::json($order);
-        }
+        //
     }
 }
