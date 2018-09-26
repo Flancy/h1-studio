@@ -24,3 +24,6 @@ Route::resource('orders', 'Orders\OrdersController');
 
 //Новости
 Route::resource('articles', 'Articles\ArticlesController');
+
+//Услуги
+Route::resource('services', 'Services\ServicesController');

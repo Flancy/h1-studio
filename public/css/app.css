@@ -10477,6 +10477,15 @@ a.text-dark:focus {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.nav-photo {
+  max-width: 35px;
+  max-height: 100%;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.nav-link.dropdown-toggle {
+  padding: 0;
+}
 .modal-h1 .table th,
 .modal-h1 .table td {
   vertical-align: middle;
@@ -10485,6 +10494,10 @@ a.text-dark:focus {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+.modal-h1 textarea {
+  height: 125px;
+  resize: none;
 }
 .orders .input-group-text {
   -webkit-box-pack: center;
@@ -10530,4 +10543,45 @@ a.text-dark:focus {
 .articles h3 {
   margin-bottom: 0;
   font-size: 20px;
+}
+.services .services-img {
+  margin: 0 auto -30px;
+  max-width: 150px;
+  height: auto;
+  max-height: 159px;
+}
+.services .card {
+  width: 100%;
+  position: relative;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.services .card-tooltip {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  right: 15px;
+  top: 15px;
+  color: #967adc;
+  font-size: 14px;
+  border-radius: 50%;
+  border: 1px solid #967adc;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.services .card-tooltip:hover,
+.services .card-tooltip:active {
+  background-color: #967adc;
+  color: #fff;
+  text-decoration: none;
+}
+.services .card-title {
+  font-size: 1.15rem;
+}
+.services .btn {
+  width: 100%;
+}
+.services .card-detail .btn {
+  width: auto;
 }

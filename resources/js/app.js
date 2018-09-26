@@ -15,6 +15,21 @@ Vue.use(BootstrapVue);
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 Vue.use(VueAxios, axios);
+//Vue ScrollTo
+var VueScrollTo = require('vue-scrollto');
+Vue.use(VueScrollTo, {
+    container: "body",
+    duration: 500,
+    easing: "ease",
+    offset: -30,
+    force: true,
+    cancelable: true,
+    onStart: false,
+    onDone: false,
+    onCancel: false,
+    x: false,
+    y: true
+});
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -31,6 +46,10 @@ Vue.component('order-delete', require('./components/Orders/OrderDeleteComponent.
 //Новости
 Vue.component('article-index', require('./components/Articles/ArticlesIndexComponent.vue'));
 Vue.component('article-info', require('./components/Articles/ArticlesInfoComponent.vue'));
+//Услуги
+Vue.component('service-index', require('./components/Services/ServicesIndexComponent.vue'));
+Vue.component('service-detail', require('./components/Services/ServicesDetailComponent.vue'));
+Vue.component('service-modal', require('./components/Services/ServicesModalComponent.vue'));
 
 const app = new Vue({
     el: '#app',
@@ -55,19 +74,33 @@ const app = new Vue({
                 },
             },
             article: {},
+            services: {},
+            serviceId: null,
     	}
     },
     created () {
         let th = this;
-        this.page = window.location.search;
-        axios.get('/orders/'+this.page)
-            .then(response => {
-                th.orders.orders = response.data.data;
-                th.orders.from = response.data.from;
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        if(window.location.pathname == '/orders' || window.location.pathname == '/orders/') {
+            this.page = window.location.search;
+            axios.get('/orders/'+this.page)
+                .then(response => {
+                    th.orders.orders = response.data.data;
+                    th.orders.from = response.data.from;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+        //Услуги
+        if(window.location.pathname == '/services' || window.location.pathname == '/services/') {
+            axios.get('/services/')
+                .then(response => {
+                    th.services = response.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
     },
     methods: {
         //Заявки
@@ -94,6 +127,10 @@ const app = new Vue({
                 this.orders.deleteOrders.remove(evt.target.value);
             }
         },
+        //Услуги
+        modalService (id) {
+            this.serviceId = id;
+        },
         //Новости
         getArticlesInfo (id) {
             let th = this;
@@ -112,5 +149,8 @@ const app = new Vue({
         closeModalArticle() {
             this.$root.$emit('bv::hide::modal','modal-article');
         },
+        closeModalService() {
+            this.$root.$emit('bv::hide::modal','modal-service');
+        }
     },
 });

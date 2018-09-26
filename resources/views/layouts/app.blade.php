@@ -46,11 +46,13 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <img src="{{ asset('img/avatar-default.jpg') }}" alt="" class="nav-photo">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('orders.index') }}">Заявки</a>
+                                    <a class="dropdown-item" href="{{ route('services.index') }}">Услуги</a>
                                     <a class="dropdown-item" href="{{ route('articles.index') }}">Новости</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
