@@ -22,19 +22,26 @@
         		let th = this;
         		if(evt.target.value == 'Удалить') {
         			th.deleteOrders.forEach(function(item, i) {
-						axios.delete('/orders/'+item)
+						axios.delete('/orders/'+item.value)
 							.then(response => {
-								th.orders.splice(item-1, 1);
+								th.orders.splice(item, 1);
 							})
 							.catch(error => {
 								console.log(error);
 							});
 					});
 					th.deleteOrders.splice(0,th.deleteOrders.length);
-					var delet = document.getElementsByClassName("order-checkbox");
-					for(var i = 0; i < delet.length; i++){
+
+					let delet = document.getElementsByClassName("order-checkbox");
+					for(let i = 0; i < delet.length; i++){
 					    delet[i].checked = false;
 					}
+
+					setTimeout(() => {
+						th.selected = null;
+					}, 100);
+					
+					this.$root.$emit('bv::show::modal','modal-order_delete-alert');
         		}
         	},
         }

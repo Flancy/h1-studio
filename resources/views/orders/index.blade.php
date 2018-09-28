@@ -19,5 +19,6 @@
 
 @include('modals.modal-order-more');
 @include('modals.modal-order-alert');
+@include('modals.modal-order_delete-alert');
 
 @endsection

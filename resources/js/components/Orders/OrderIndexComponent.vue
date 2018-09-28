@@ -20,7 +20,7 @@
 		        </td>
 		        <td>
 		            <div class="input-group-text text">
-		                <input type="checkbox" @click="saveDeleteOrder" :value="order.id" class="order-checkbox">
+		                <input type="checkbox" @click="saveDeleteOrder" :value="order.id" :id="index" class="order-checkbox">
 		            </div>
 		        </td>
 		        <td>

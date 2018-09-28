@@ -122,9 +122,12 @@ const app = new Vue({
     	},
         saveDeleteOrder (evt) {
             if(evt.target.checked === true) {
-                this.orders.deleteOrders.push(evt.target.value);
+                this.orders.deleteOrders.push({ id: evt.target.attributes[1].value, value: evt.target.value });
             } else {
-                this.orders.deleteOrders.remove(evt.target.value);
+                this.orders.deleteOrders = this.orders.deleteOrders.filter(function(item) {
+                    return item.value !== evt.target.value;
+                });
+                console.log(this.orders.deleteOrders);
             }
         },
         //Услуги
@@ -145,6 +148,9 @@ const app = new Vue({
         },
         closeModalOrderAlert() {
             this.$root.$emit('bv::hide::modal','modal-order-alert');
+        },
+        closeModalOrderDeleteAlert() {
+            this.$root.$emit('bv::hide::modal','modal-order_delete-alert');
         },
         closeModalArticle() {
             this.$root.$emit('bv::hide::modal','modal-article');
