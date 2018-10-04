@@ -51,13 +51,14 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('orders.index') }}">Заявки</a>
-                                    <a class="dropdown-item" href="{{ route('services.index') }}">Услуги</a>
-                                    @if (Auth::user()->roles()->get()->first()->name == 'admin')
+                                    @if (Auth::user()->isAdmin())
+                                        <a class="dropdown-item" href="{{ route('orders.index') }}">Заявки</a>
+                                        <a class="dropdown-item" href="{{ route('services.index') }}">Услуги</a>
                                         <a class="dropdown-item" href="{{ route('articles.index') }}">Новости</a>
                                         <a class="dropdown-item dropdown-item_pdl" href="{{ route('articles.create') }}">Добавить новость</a>
                                     @else
                                         <a class="dropdown-item" href="{{ route('articles.index') }}">Новости</a>
+                                        <a class="dropdown-item" href="{{ route('services.index') }}">Услуги</a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

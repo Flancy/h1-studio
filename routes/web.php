@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Заявки
-Route::resource('orders', 'Orders\OrdersController');
+Route::resource('orders', 'Orders\OrdersController')->middleware('admin');
 
 //Новости
 Route::resource('articles', 'Articles\ArticlesController');
