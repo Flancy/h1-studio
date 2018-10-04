@@ -22,6 +22,7 @@ class ArticlesTableSeeder extends Seeder
                 'description' => $faker->realText(rand(500,1000)),
                 'photo' => '/img/article-default.jpg',
                 'url' => $faker->unique()->realText(rand(20,30)),
+                'created_at' => now()
             ]);
         }
     }

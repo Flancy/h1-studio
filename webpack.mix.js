@@ -12,10 +12,11 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-   .stylus('resources/stylus/app.styl', 'public/css', {
+	.stylus('resources/stylus/app.styl', 'public/css', {
 	    use: [
 	        require('rupture')(),
 	        require('nib')()
 	    ]
 	})
-   .browserSync('h1-studio.ru');
+	.browserSync('h1-studio.ru')
+	.copy('node_modules/font-awesome/fonts', 'public/fonts');

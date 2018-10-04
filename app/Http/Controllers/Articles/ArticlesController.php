@@ -6,6 +6,7 @@ use App\Articles;
 use Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 
 class ArticlesController extends Controller
@@ -17,7 +18,7 @@ class ArticlesController extends Controller
      */
     public function index(Request $request)
     {
-        $articles = DB::table('articles')->paginate(9);
+        $articles = DB::table('articles')->orderBy('created_at', 'desc')->paginate(9);
         if($request->ajax()){
             return Response::json($articles);
         }
@@ -32,7 +33,7 @@ class ArticlesController extends Controller
      */
     public function create()
     {
-        //
+        return view('articles.create');
     }
 
     /**
@@ -43,7 +44,19 @@ class ArticlesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->ajax()){
+            $validator = Validator::make($request->all(), [
+                'url' => 'unique:articles',
+            ]);
+
+            if ($validator->fails()) {    
+                return response()->json($validator->errors(), 400);
+            }
+
+            $articles = Articles::create($request->all());
+
+            return Response::json($articles);
+        }
     }
 
     /**
@@ -52,7 +65,7 @@ class ArticlesController extends Controller
      * @param  \App\Articles  $articles
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id,Articles $articles)
+    public function show(Request $request, $id, Articles $articles)
     {
         $articles = $articles->find($id);
 

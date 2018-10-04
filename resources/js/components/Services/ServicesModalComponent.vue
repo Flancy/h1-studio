@@ -9,7 +9,7 @@
 						v-model="form.email"
 						:state="Boolean(form.email)"
 						required
-						placeholder="Введите email">i=</b-form-input>
+						placeholder="Введите email"></b-form-input>
 			</b-form-group>
 			<b-form-group id="name"
 				label="Ваше Имя *:"

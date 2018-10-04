@@ -30,6 +30,8 @@ Vue.use(VueScrollTo, {
     x: false,
     y: true
 });
+//Moment
+var moment = require('moment');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -45,6 +47,7 @@ Vue.component('order-status', require('./components/Orders/OrderStatusComponent.
 Vue.component('order-delete', require('./components/Orders/OrderDeleteComponent.vue'));
 //Новости
 Vue.component('article-index', require('./components/Articles/ArticlesIndexComponent.vue'));
+Vue.component('article-create', require('./components/Articles/ArticlesCreateComponent.vue'));
 Vue.component('article-info', require('./components/Articles/ArticlesInfoComponent.vue'));
 //Услуги
 Vue.component('service-index', require('./components/Services/ServicesIndexComponent.vue'));
@@ -76,6 +79,7 @@ const app = new Vue({
             article: {},
             services: {},
             serviceId: null,
+            moment: moment,
     	}
     },
     created () {

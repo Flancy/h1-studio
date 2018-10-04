@@ -15,7 +15,7 @@
 			                v-b-modal.modal-article>Подробнее</b-btn>
 	                </div>
 	                <div class="text-right">
-	                    <p class="card-date">19.09.2018</p>
+	                    <p class="card-date">{{ moment(article.created_at).format('MM/DD/YYYY') }}</p>
 	                </div>
 	            </div>
 	        </div>
@@ -26,7 +26,8 @@
 <script>
 	export default {
 		props: [
-			"getArticlesInfo"
+			"getArticlesInfo",
+			"moment"
 		],
 		data () {
 			return {

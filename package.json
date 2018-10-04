@@ -24,6 +24,8 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
+        "font-awesome": "^4.7.0",
+        "moment": "^2.22.2",
         "nib": "^1.1.2",
         "rupture": "^0.7.1",
         "vue-axios": "^2.1.3",
