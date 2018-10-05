@@ -36,6 +36,10 @@ class ArticlesController extends Controller
      */
     public function create()
     {
+        if(!Auth::user()->isAdmin()) {
+            return redirect('home');
+        }
+
         return view('articles.create');
     }
 
@@ -47,6 +51,11 @@ class ArticlesController extends Controller
      */
     public function store(Request $request)
     {
+
+        if(!Auth::user()->isAdmin()) {
+            return redirect('home');
+        }
+
         if($request->ajax()){
             $validator = Validator::make($request->all(), [
                 'url' => 'unique:articles',
@@ -122,8 +131,18 @@ class ArticlesController extends Controller
      * @param  \App\Articles  $articles
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Articles $articles)
+    public function destroy($id, Articles $articles)
     {
-        //
+        if(!Auth::user()->isAdmin()) {
+            return redirect('home');
+        }
+
+        $articles = $articles->find($id)->delete(); 
+
+        if($articles) {
+            return Response::json(true);
+        }
+
+        return Response::json(false);
     }
 }

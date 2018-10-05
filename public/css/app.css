@@ -13576,6 +13576,14 @@ a.text-dark:focus {
       -ms-flex-pack: center;
           justify-content: center;
 }
+.articles .card {
+  position: relative;
+}
+.articles .close {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
 .articles .card-header {
   text-align: center;
 }

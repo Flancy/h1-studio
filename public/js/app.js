@@ -82541,6 +82541,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["getArticlesInfo", "moment"],
@@ -82564,6 +82565,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }).catch(function (error) {
         console.log(error);
       });
+    },
+    deleteArticle: function deleteArticle(article, index) {
+      var th = this;
+      axios.delete('/articles/' + article.id).then(function (response) {
+        th.articles.splice(th.articles.indexOf(article), 1);
+      }).catch(function (error) {
+        console.log(error);
+      });
     }
   }
 });
@@ -82579,64 +82588,77 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "row justify-content-center" },
-    _vm._l(_vm.articles, function(article) {
+    _vm._l(_vm.articles, function(article, index) {
       return _c(
         "div",
         { staticClass: "col-sm-6 col-md-4 mb-3 d-flex align-items-stretch" },
         [
-          _c("div", { staticClass: "card" }, [
-            _c("img", {
-              staticClass: "card-img-top img-fluid",
-              attrs: { src: article.photo, alt: article.title }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("h5", { staticClass: "card-title" }, [
-                _vm._v(_vm._s(article.title))
+          _c(
+            "div",
+            { staticClass: "card" },
+            [
+              _vm._t("default", null, {
+                deleteArticle: _vm.deleteArticle,
+                article: article,
+                index: index
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "card-img-top img-fluid",
+                attrs: { src: article.photo, alt: article.title }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [
+                  _vm._v(_vm._s(article.title))
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _vm._v(_vm._s(article.short_description))
+                ])
               ]),
               _vm._v(" "),
-              _c("p", { staticClass: "card-text" }, [
-                _vm._v(_vm._s(article.short_description))
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-footer text-muted" }, [
-              _c(
-                "div",
-                { staticClass: "text-left" },
-                [
-                  _c(
-                    "b-btn",
-                    {
-                      directives: [
-                        {
-                          name: "b-modal",
-                          rawName: "v-b-modal.modal-article",
-                          modifiers: { "modal-article": true }
+              _c("div", { staticClass: "card-footer text-muted" }, [
+                _c(
+                  "div",
+                  { staticClass: "text-left" },
+                  [
+                    _c(
+                      "b-btn",
+                      {
+                        directives: [
+                          {
+                            name: "b-modal",
+                            rawName: "v-b-modal.modal-article",
+                            modifiers: { "modal-article": true }
+                          }
+                        ],
+                        attrs: { variant: "outline-primary" },
+                        on: {
+                          click: function($event) {
+                            _vm.getArticlesInfo(article.id)
+                          }
                         }
-                      ],
-                      attrs: { variant: "outline-primary" },
-                      on: {
-                        click: function($event) {
-                          _vm.getArticlesInfo(article.id)
-                        }
-                      }
-                    },
-                    [_vm._v("Подробнее")]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "text-right" }, [
-                _c("p", { staticClass: "card-date" }, [
-                  _vm._v(
-                    _vm._s(_vm.moment(article.created_at).format("MM/DD/YYYY"))
-                  )
+                      },
+                      [_vm._v("Подробнее")]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-right" }, [
+                  _c("p", { staticClass: "card-date" }, [
+                    _vm._v(
+                      _vm._s(
+                        _vm.moment(article.created_at).format("MM/DD/YYYY")
+                      )
+                    )
+                  ])
                 ])
               ])
-            ])
-          ])
+            ],
+            2
+          )
         ]
       )
     })
