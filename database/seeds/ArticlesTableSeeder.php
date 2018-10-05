@@ -20,7 +20,7 @@ class ArticlesTableSeeder extends Seeder
                 'title' => $faker->realText(rand(20,30)),
                 'short_description' => $faker->realText(rand(100,300)),
                 'description' => $faker->realText(rand(500,1000)),
-                'photo' => '/img/article-default.jpg',
+                'photo' => '/public/storage/articles/article-default.jpg',
                 'url' => $faker->unique()->realText(rand(20,30)),
                 'created_at' => now()
             ]);

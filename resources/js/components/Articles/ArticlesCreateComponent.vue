@@ -53,6 +53,7 @@
 				label="Изображение статьи:"
 				label-for="photo">
 					<b-form-file 
+						accept="image/*"
 						v-model="form.photo" 
 						placeholder="Выберите изображение..."
 						:rows="3"
@@ -77,12 +78,13 @@ export default {
 				url: null,
 				short_description: null,
 				description: null,
-				photo: '/img/article-default.jpg'
+				photo: null
 			},
 			show: true,
 			showError: false,
 			showSuccess: false,
-			errors: null
+			errors: null,
+			formData: {},
 		}
 	},
 	filters: {
@@ -96,8 +98,17 @@ export default {
 		onSubmit (evt) {
 			evt.preventDefault();
 			let th = this;
-			axios.post('/articles', this.form)
+			this.formData = new FormData();
+      		this.formData.append('title', this.form.title);
+      		this.formData.append('url', this.form.url);
+      		this.formData.append('short_description', this.form.short_description);
+      		this.formData.append('description', this.form.description);
+      		if(this.form.photo !== null) {
+				this.formData.append('photo', this.form.photo);
+      		}
+			axios.post('/articles', this.formData, {headers: {'Content-Type': 'multipart/form-data'}})
 	    		.then(response => {
+	    			console.log(this.formData);
 	    			console.log(response.data);
 	    			th.showSuccess = true;
 	    			th.showError = false;

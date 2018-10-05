@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Articles;
 
 use App\Articles;
 use Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -11,6 +13,7 @@ use App\Http\Controllers\Controller;
 
 class ArticlesController extends Controller
 {
+    private $image_ext = ['jpg', 'jpeg', 'png', 'gif'];
     /**
      * Display a listing of the resource.
      *
@@ -53,9 +56,25 @@ class ArticlesController extends Controller
                 return response()->json($validator->errors(), 400);
             }
 
-            $articles = Articles::create($request->all());
+            $articles = new Articles();
 
-            return Response::json($articles);
+            if($request->hasFile('photo')){
+                $filename = md5(microtime()).$request->photo->getClientOriginalName();
+                $request->file('photo')->storeAs(
+                    '/public/articles', $filename
+                );
+                $path = '/public/storage/articles/'.$filename;
+            } else {
+                $path = '/public/storage/articles/article-default.jpg';
+            }
+
+            return $articles::create([
+                'title' => $request['title'],
+                'short_description' => $request['short_description'],
+                'description' => $request['description'],
+                'url' => $request['url'],
+                'photo' => $path,
+            ]);
         }
     }
 

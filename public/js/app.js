@@ -82772,6 +82772,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	props: ['serviceId'],
@@ -82782,12 +82783,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				url: null,
 				short_description: null,
 				description: null,
-				photo: '/img/article-default.jpg'
+				photo: null
 			},
 			show: true,
 			showError: false,
 			showSuccess: false,
-			errors: null
+			errors: null,
+			formData: {}
 		};
 	},
 
@@ -82800,9 +82802,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 	methods: {
 		onSubmit: function onSubmit(evt) {
+			var _this = this;
+
 			evt.preventDefault();
 			var th = this;
-			axios.post('/articles', this.form).then(function (response) {
+			this.formData = new FormData();
+			this.formData.append('title', this.form.title);
+			this.formData.append('url', this.form.url);
+			this.formData.append('short_description', this.form.short_description);
+			this.formData.append('description', this.form.description);
+			if (this.form.photo !== null) {
+				this.formData.append('photo', this.form.photo);
+			}
+			axios.post('/articles', this.formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(function (response) {
+				console.log(_this.formData);
 				console.log(response.data);
 				th.showSuccess = true;
 				th.showError = false;
@@ -82814,7 +82827,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			});
 		},
 		onReset: function onReset(evt) {
-			var _this = this;
+			var _this2 = this;
 
 			evt.preventDefault();
 
@@ -82826,7 +82839,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			this.show = false;
 			this.$nextTick(function () {
-				_this.show = true;
+				_this2.show = true;
 			});
 		}
 	}
@@ -83004,6 +83017,7 @@ var render = function() {
                 [
                   _c("b-form-file", {
                     attrs: {
+                      accept: "image/*",
                       placeholder: "Выберите изображение...",
                       rows: 3,
                       "max-rows": 6
