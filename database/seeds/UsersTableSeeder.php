@@ -15,7 +15,8 @@ class UsersTableSeeder extends Seeder
     {
         $user = new User([
             'name' => 'h1-studio-admin',
-            'full_name' => 'H1-Studio',
+            'full_name' => 'Администратор',
+            'phone' => '+7(999)999-99-99',
             'email' => 'flancyk.flancyk@yandex.ru',
             'password' => Hash::make('admin'),
             'company' => 'H1-Studio',

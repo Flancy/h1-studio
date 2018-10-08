@@ -53,6 +53,10 @@ Vue.component('article-info', require('./components/Articles/ArticlesInfoCompone
 Vue.component('service-index', require('./components/Services/ServicesIndexComponent.vue'));
 Vue.component('service-detail', require('./components/Services/ServicesDetailComponent.vue'));
 Vue.component('service-modal', require('./components/Services/ServicesModalComponent.vue'));
+//Клиенты
+Vue.component('user-index', require('./components/Users/UsersIndexComponent.vue'));
+
+
 
 const app = new Vue({
     el: '#app',

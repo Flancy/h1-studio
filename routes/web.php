@@ -27,3 +27,6 @@ Route::resource('articles', 'Articles\ArticlesController');
 
 //Услуги
 Route::resource('services', 'Services\ServicesController');
+
+//Клиенты
+Route::resource('users', 'Users\UsersController')->middleware('admin');
