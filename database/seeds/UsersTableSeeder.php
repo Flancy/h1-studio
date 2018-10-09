@@ -25,5 +25,21 @@ class UsersTableSeeder extends Seeder
 
         $role = Role::find(1);
         $role->users()->save($user);
+
+        $faker = Faker\Factory::create();
+
+        $limit = 30;
+
+        for ($i = 0; $i < $limit; $i++) {
+            DB::table('users')->insert([
+                'name' => $faker->unique()->userName,
+                'full_name' => $faker->name,
+                'phone' => '+7(999)999-99-99',
+                'email' => $faker->unique()->email,
+                'company' => $faker->company,
+                'description' => $faker->realText(rand(500,1000)),
+                'password' => Hash::make('admin')
+            ]);
+        }
     }
 }

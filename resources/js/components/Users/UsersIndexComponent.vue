@@ -26,10 +26,23 @@
 		        </td>
 		        <td>
 		            <b-btn
+		            	@click="deleteUser(user, user.id)"
 		                variant="danger"><i class="fa fa-trash-o" aria-hidden="true"></i> Удалить</b-btn>
 		        </td>
 		    </tr>
 		</tbody>
+		<div>
+			<b-modal centered class="modal-h1" title="Клиент успешно удален" v-model="modalShow">
+			    <b-alert show variant="success">
+			    	Клиент успешно удален
+			  	</b-alert>
+			    <div slot="modal-footer">
+				    <b-btn size="lg" variant="primary" @click="modalShow = !modalShow">
+				    	Закрыть
+				    </b-btn>
+				</div>
+			</b-modal>
+		</div>
 	</table>
 </template>
 
@@ -38,7 +51,8 @@
         data () {
         	return {
         		users: {},
-        		page: null
+        		page: null,
+        		modalShow: false
         	}
         },
 		created () {
@@ -55,12 +69,22 @@
         			this.page = window.location.search;
         		axios.get('/users/'+th.page)
         			.then(response => {
-        				console.log(response);
         				th.users = response.data;
         			})
         			.catch(error => {
         				console.log(error);
         			});
+	        },
+	        deleteUser(user, id) {
+	        	let th = this;
+	        	axios.delete('/users/'+id)
+	        		.then(response => {
+	        			th.users.data.splice(th.users.data.indexOf(user), 1);
+	        			th.modalShow = !th.modalShow
+	        		})
+	        		.catch(error => {
+	        			console.log(error);
+	        		})
 	        }
         }
     }

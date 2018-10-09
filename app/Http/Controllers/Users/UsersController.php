@@ -93,6 +93,12 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id)->delete(); 
+
+        if($user) {
+            return Response::json(true);
+        }
+
+        return Response::json(false);
     }
 }

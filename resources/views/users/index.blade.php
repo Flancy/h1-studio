@@ -14,6 +14,4 @@
     </div>
 </div>
 
-@include('modals.modal-article-more');
-
 @endsection
