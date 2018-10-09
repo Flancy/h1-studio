@@ -13588,6 +13588,14 @@ a.text-dark:focus {
       -ms-flex-pack: center;
           justify-content: center;
 }
+.orders .alert {
+  margin-bottom: 0;
+  padding: 0.5rem 1.25rem;
+}
+.orders .alerts-wrap .alert {
+  font-weight: bold;
+  font-size: 0.7rem;
+}
 .articles .card {
   position: relative;
 }

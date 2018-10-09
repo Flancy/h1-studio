@@ -14,7 +14,10 @@
 		<tbody>
 		    <tr v-for="(user, index) in users.data">
 		        <th class="th-center">{{ getUserIndex(index) }}</th>
-		        <td>{{ user.full_name }}</td>
+		        <td>
+		        	<b-alert :show="user.name == 'h1-studio-admin'" variant="primary"><a :href="'users/'+user.id">{{ user.full_name }}</a></b-alert>
+			    	<b-alert :show="user.name != 'h1-studio-admin'" variant="secondary"><a :href="'users/'+user.id">{{ user.full_name }}</a></b-alert>
+		    	</td>
 		        <td>{{ user.email }}</td>
 		        <td>{{ user.phone }}</td>
 		        <td>

@@ -78,9 +78,15 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        if($request->ajax()){
+            return Response::json($user);
+        }
+
+        return view('users.show', ['user' => $user]);
     }
 
     /**
