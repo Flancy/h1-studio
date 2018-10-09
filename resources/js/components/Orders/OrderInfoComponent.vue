@@ -5,7 +5,7 @@
 			<tr><td><b>Статус заявки:</b></td><td>{{ orders.orderInfo.status }}</td></tr>
 		    <tr><td><b>Тема заявки:</b></td><td>{{ orders.orderInfo.subject }}</td></tr>
 		    <tr><td><b>Имя:</b></td><td>{{ orders.orderInfo.name }}</td></tr>
-		    <tr><td><b>Email:</b></td><td>{{ orders.orderInfo.email }}</td></tr>
+		    <tr><td><b>E-mail:</b></td><td>{{ orders.orderInfo.email }}</td></tr>
 		    <tr><td><b>Телефон:</b></td><td>{{ orders.orderInfo.phone }}</td></tr>
 		    <tr><td><b>Описание:</b></td><td>{{ orders.orderInfo.description }}</td></tr>
 		    <tr><td><b>URL заявки:</b></td><td>{{ orders.orderInfo.url }}</td></tr>

@@ -1,4 +1,4 @@
-<b-modal id="modal-order" class="modal-h1" centered title="Заявка">
+<b-modal id="modal-order" size="lg" class="modal-h1" centered title="Заявка">
     <p class="modal-head">Заявка</p>
 
     <order-info :orders="orders"></order-info>

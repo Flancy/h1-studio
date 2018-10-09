@@ -7,8 +7,8 @@
                 <th>E-mail</th>
                 <th>Телефон</th>
                 <th>Название компании</th>
-                <th>&nbsp;</th>
-                <th>&nbsp;</th>
+                <th>Подробнее</th>
+                <th>Удалить</th>
             </tr>
         </thead>
 		<tbody>
@@ -22,7 +22,8 @@
 		        </td>
 		        <td>
 		            <b-btn
-		                variant="danger"><i class="fa fa-trash-o" aria-hidden="true"></i></b-btn>
+		            	@click="getUsersInfo(user)"
+		                variant="outline-info">Подробнее</b-btn>
 		        </td>
 		        <td>
 		            <b-btn
@@ -43,6 +44,25 @@
 				</div>
 			</b-modal>
 		</div>
+		<div>
+			<b-modal size="lg" centered class="modal-h1" title="Информация о клиенте" v-model="modalShowInfo">
+			  	<table class="table table-bordered">
+				    <tbody>
+						<tr><td><b>Логин:</b></td><td>{{ userInfo.name }}</td></tr>
+						<tr><td><b>Имя:</b></td><td>{{ userInfo.full_name }}</td></tr>
+						<tr><td><b>E-mail:</b></td><td>{{ userInfo.email }}</td></tr>
+						<tr><td><b>Телефон:</b></td><td>{{ userInfo.phone }}</td></tr>
+						<tr><td><b>Компания:</b></td><td>{{ userInfo.company }}</td></tr>
+						<tr><td><b>Дополнительная информация:</b></td><td>{{ userInfo.description }}</td></tr>
+					</tbody>
+				</table>
+			    <div slot="modal-footer">
+				    <b-btn size="lg" variant="primary" @click="modalShowInfo = !modalShowInfo">
+				    	Закрыть
+				    </b-btn>
+				</div>
+			</b-modal>
+		</div>
 	</table>
 </template>
 
@@ -51,8 +71,10 @@
         data () {
         	return {
         		users: {},
+        		userInfo: {},
         		page: null,
-        		modalShow: false
+        		modalShow: false,
+        		modalShowInfo: false
         	}
         },
 		created () {
@@ -74,6 +96,10 @@
         			.catch(error => {
         				console.log(error);
         			});
+	        },
+	        getUsersInfo(user) {
+	        	this.userInfo = user;
+	        	this.modalShowInfo = !this.modalShowInfo;
 	        },
 	        deleteUser(user, id) {
 	        	let th = this;

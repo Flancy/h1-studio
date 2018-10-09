@@ -82159,7 +82159,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [_c("b", [_vm._v("Email:")])])
+    return _c("td", [_c("b", [_vm._v("E-mail:")])])
   },
   function() {
     var _vm = this
@@ -83923,13 +83923,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 							data: function data() {
 														return {
 																					users: {},
+																					userInfo: {},
 																					page: null,
-																					modalShow: false
+																					modalShow: false,
+																					modalShowInfo: false
 														};
 							},
 							created: function created() {
@@ -83950,6 +83972,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 																					}).catch(function (error) {
 																												console.log(error);
 																					});
+														},
+														getUsersInfo: function getUsersInfo(user) {
+																					this.userInfo = user;
+																					this.modalShowInfo = !this.modalShowInfo;
 														},
 														deleteUser: function deleteUser(user, id) {
 																					var th = this;
@@ -83995,12 +84021,18 @@ var render = function() {
           _c(
             "td",
             [
-              _c("b-btn", { attrs: { variant: "danger" } }, [
-                _c("i", {
-                  staticClass: "fa fa-trash-o",
-                  attrs: { "aria-hidden": "true" }
-                })
-              ])
+              _c(
+                "b-btn",
+                {
+                  attrs: { variant: "outline-info" },
+                  on: {
+                    click: function($event) {
+                      _vm.getUsersInfo(user)
+                    }
+                  }
+                },
+                [_vm._v("Подробнее")]
+              )
             ],
             1
           ),
@@ -84078,6 +84110,82 @@ var render = function() {
         )
       ],
       1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      [
+        _c(
+          "b-modal",
+          {
+            staticClass: "modal-h1",
+            attrs: { size: "lg", centered: "", title: "Информация о клиенте" },
+            model: {
+              value: _vm.modalShowInfo,
+              callback: function($$v) {
+                _vm.modalShowInfo = $$v
+              },
+              expression: "modalShowInfo"
+            }
+          },
+          [
+            _c("table", { staticClass: "table table-bordered" }, [
+              _c("tbody", [
+                _c("tr", [
+                  _c("td", [_c("b", [_vm._v("Логин:")])]),
+                  _c("td", [_vm._v(_vm._s(_vm.userInfo.name))])
+                ]),
+                _vm._v(" "),
+                _c("tr", [
+                  _c("td", [_c("b", [_vm._v("Имя:")])]),
+                  _c("td", [_vm._v(_vm._s(_vm.userInfo.full_name))])
+                ]),
+                _vm._v(" "),
+                _c("tr", [
+                  _c("td", [_c("b", [_vm._v("E-mail:")])]),
+                  _c("td", [_vm._v(_vm._s(_vm.userInfo.email))])
+                ]),
+                _vm._v(" "),
+                _c("tr", [
+                  _c("td", [_c("b", [_vm._v("Телефон:")])]),
+                  _c("td", [_vm._v(_vm._s(_vm.userInfo.phone))])
+                ]),
+                _vm._v(" "),
+                _c("tr", [
+                  _c("td", [_c("b", [_vm._v("Компания:")])]),
+                  _c("td", [_vm._v(_vm._s(_vm.userInfo.company))])
+                ]),
+                _vm._v(" "),
+                _c("tr", [
+                  _c("td", [_c("b", [_vm._v("Дополнительная информация:")])]),
+                  _c("td", [_vm._v(_vm._s(_vm.userInfo.description))])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { attrs: { slot: "modal-footer" }, slot: "modal-footer" },
+              [
+                _c(
+                  "b-btn",
+                  {
+                    attrs: { size: "lg", variant: "primary" },
+                    on: {
+                      click: function($event) {
+                        _vm.modalShowInfo = !_vm.modalShowInfo
+                      }
+                    }
+                  },
+                  [_vm._v("\n\t\t\t\t    \tЗакрыть\n\t\t\t\t    ")]
+                )
+              ],
+              1
+            )
+          ]
+        )
+      ],
+      1
     )
   ])
 }
@@ -84098,9 +84206,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Название компании")]),
         _vm._v(" "),
-        _c("th", [_vm._v(" ")]),
+        _c("th", [_vm._v("Подробнее")]),
         _vm._v(" "),
-        _c("th", [_vm._v(" ")])
+        _c("th", [_vm._v("Удалить")])
       ])
     ])
   }
