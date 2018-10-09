@@ -55,8 +55,9 @@ Vue.component('service-detail', require('./components/Services/ServicesDetailCom
 Vue.component('service-modal', require('./components/Services/ServicesModalComponent.vue'));
 //Клиенты
 Vue.component('user-index', require('./components/Users/UsersIndexComponent.vue'));
+Vue.component('user-create', require('./components/Users/UsersCreateComponent.vue'));
 
-
+export const eventBus = new Vue();
 
 const app = new Vue({
     el: '#app',

@@ -6,6 +6,7 @@
             <div class="card">
                 <div class="card-header">Клиенты</div>
                 <div class="card-body">
+                    <user-create></user-create>
                     <user-index></user-index>
                     <?php echo $users->render(); ?>
                 </div>

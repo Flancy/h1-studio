@@ -67,6 +67,7 @@
 </template>
 
 <script>
+	import {eventBus} from '../../app.js'
 	export default {
         data () {
         	return {
@@ -79,6 +80,9 @@
         },
 		created () {
 			this.getUsers();
+			eventBus.$on("userCreate", (user) => {
+				this.addUserInToTable(user);
+		    });
 		},
         methods: {
         	getUserIndex(index) {
@@ -111,6 +115,9 @@
 	        		.catch(error => {
 	        			console.log(error);
 	        		})
+	        },
+	        addUserInToTable(user) {
+	        	this.users.data.unshift(user);
 	        }
         }
     }

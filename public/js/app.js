@@ -36622,6 +36622,7 @@ module.exports = __webpack_require__(379);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "eventBus", function() { return eventBus; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bootstrap_vue__ = __webpack_require__(226);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
@@ -36684,6 +36685,9 @@ Vue.component('service-detail', __webpack_require__(370));
 Vue.component('service-modal', __webpack_require__(373));
 //Клиенты
 Vue.component('user-index', __webpack_require__(376));
+Vue.component('user-create', __webpack_require__(382));
+
+var eventBus = new Vue();
 
 var app = new Vue({
     el: '#app',
@@ -82826,8 +82830,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 	methods: {
 		onSubmit: function onSubmit(evt) {
-			var _this = this;
-
 			evt.preventDefault();
 			var th = this;
 			this.formData = new FormData();
@@ -82839,8 +82841,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				this.formData.append('photo', this.form.photo);
 			}
 			axios.post('/articles', this.formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(function (response) {
-				console.log(_this.formData);
-				console.log(response.data);
 				th.showSuccess = true;
 				th.showError = false;
 			}).catch(function (error) {
@@ -82851,7 +82851,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			});
 		},
 		onReset: function onReset(evt) {
-			var _this2 = this;
+			var _this = this;
 
 			evt.preventDefault();
 
@@ -82863,7 +82863,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			this.show = false;
 			this.$nextTick(function () {
-				_this2.show = true;
+				_this.show = true;
 			});
 		}
 	}
@@ -83068,7 +83068,7 @@ var render = function() {
               _c(
                 "b-button",
                 { attrs: { type: "submit", variant: "primary" } },
-                [_vm._v("Отправить")]
+                [_vm._v("Добавить")]
               ),
               _vm._v(" "),
               _c("b-button", { attrs: { type: "reset", variant: "danger" } }, [
@@ -83875,6 +83875,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_js__ = __webpack_require__(201);
 //
 //
 //
@@ -83944,6 +83945,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
 							data: function data() {
 														return {
@@ -83955,7 +83957,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 														};
 							},
 							created: function created() {
+														var _this = this;
+
 														this.getUsers();
+														__WEBPACK_IMPORTED_MODULE_0__app_js__["eventBus"].$on("userCreate", function (user) {
+																					_this.addUserInToTable(user);
+														});
 							},
 
 							methods: {
@@ -83985,6 +83992,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 																					}).catch(function (error) {
 																												console.log(error);
 																					});
+														},
+														addUserInToTable: function addUserInToTable(user) {
+																					this.users.data.unshift(user);
 														}
 							}
 });
@@ -84227,6 +84237,593 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 380 */,
+/* 381 */,
+/* 382 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(8)
+/* script */
+var __vue_script__ = __webpack_require__(383)
+/* template */
+var __vue_template__ = __webpack_require__(384)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/Users/UsersCreateComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1560c4ab", Component.options)
+  } else {
+    hotAPI.reload("data-v-1560c4ab", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 383 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_js__ = __webpack_require__(201);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			form: {
+				name: 'babytroll',
+				full_name: 'Baby Troll',
+				email: 'babytroll@admin.ru',
+				phone: '+7(111)111-11-11',
+				company: 'Baby Bone',
+				description: 'Info',
+				password: 'admin'
+			},
+			show: true,
+			modalShow: false,
+			showError: false,
+			showSuccess: false,
+			errors: null
+		};
+	},
+
+	filters: {
+		errorFilter: function errorFilter(value) {
+			if (!value) return '';
+			value = value.toString();
+			return value.replace(/\/r/g, '[]"');
+		}
+	},
+	methods: {
+		onSubmit: function onSubmit(evt) {
+			evt.preventDefault();
+			var th = this;
+			axios.post('/users', this.form).then(function (response) {
+				th.showSuccess = true;
+				th.showError = false;
+				__WEBPACK_IMPORTED_MODULE_0__app_js__["eventBus"].$emit("userCreate", response.data);
+			}).catch(function (error) {
+				console.log(error);
+				th.errors = error.response.data;
+				th.showError = true;
+				th.showSuccess = false;
+			});
+		},
+		onReset: function onReset(evt) {
+			var _this = this;
+
+			evt.preventDefault();
+
+			this.form.name = '';
+			this.form.full_name = '';
+			this.form.email = '';
+			this.form.phone = '';
+			this.form.company = '';
+			this.form.description = '';
+			this.form.password = '';
+
+			this.show = false;
+			this.$nextTick(function () {
+				_this.show = true;
+			});
+		}
+	}
+});
+
+/***/ }),
+/* 384 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "col-sm-3 pl-0 pr-0 mb-3" },
+    [
+      _c(
+        "b-button",
+        {
+          attrs: { size: "md", variant: "primary" },
+          on: {
+            click: function($event) {
+              _vm.modalShow = !_vm.modalShow
+            }
+          }
+        },
+        [
+          _c("i", {
+            staticClass: "fa fa-plus",
+            attrs: { "aria-hidden": "true" }
+          }),
+          _vm._v(" Добавить клиента\n        ")
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          staticClass: "modal-h1",
+          attrs: { size: "md", centered: "", title: "Добавление клиента" },
+          model: {
+            value: _vm.modalShow,
+            callback: function($$v) {
+              _vm.modalShow = $$v
+            },
+            expression: "modalShow"
+          }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-body" },
+            [
+              _vm.showError
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "alert alert-warning",
+                      attrs: { role: "alert" }
+                    },
+                    _vm._l(_vm.errors, function(error) {
+                      return _c("p", [
+                        _vm._v(
+                          "\n\t\t\t\t\t\t" +
+                            _vm._s(_vm._f("errorFilter")(error)) +
+                            "\n\t\t\t\t\t"
+                        )
+                      ])
+                    })
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.showSuccess
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "alert alert-success",
+                      attrs: { role: "alert" }
+                    },
+                    [_vm._v("\n\t\t\t\t\tКлиент успешно добавлен\n\t\t\t\t")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.show
+                ? _c(
+                    "b-form",
+                    { on: { submit: _vm.onSubmit, reset: _vm.onReset } },
+                    [
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            id: "name",
+                            label: "Логин *:",
+                            "label-for": "name"
+                          }
+                        },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "name",
+                              type: "text",
+                              state: Boolean(_vm.form.name),
+                              required: "",
+                              placeholder: "Введите логин"
+                            },
+                            model: {
+                              value: _vm.form.name,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "name", $$v)
+                              },
+                              expression: "form.name"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            id: "password",
+                            label: "Пароль *:",
+                            "label-for": "password"
+                          }
+                        },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "password",
+                              type: "text",
+                              state: Boolean(_vm.form.password),
+                              required: "",
+                              placeholder: "Введите пароль"
+                            },
+                            model: {
+                              value: _vm.form.password,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "password", $$v)
+                              },
+                              expression: "form.password"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            id: "full_name",
+                            label: "Имя *:",
+                            "label-for": "full_name"
+                          }
+                        },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "full_name",
+                              type: "text",
+                              state: Boolean(_vm.form.full_name),
+                              required: "",
+                              placeholder: "Введите имя"
+                            },
+                            model: {
+                              value: _vm.form.full_name,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "full_name", $$v)
+                              },
+                              expression: "form.full_name"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            id: "email",
+                            label: "E-mail *:",
+                            "label-for": "email"
+                          }
+                        },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "email",
+                              type: "text",
+                              state: Boolean(_vm.form.email),
+                              required: "",
+                              placeholder: "Введите E-mail"
+                            },
+                            model: {
+                              value: _vm.form.email,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "email", $$v)
+                              },
+                              expression: "form.email"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            id: "phone",
+                            label: "Телефон *:",
+                            "label-for": "phone"
+                          }
+                        },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "phone",
+                              type: "text",
+                              state: Boolean(_vm.form.phone),
+                              required: "",
+                              placeholder: "Введите телефон"
+                            },
+                            model: {
+                              value: _vm.form.phone,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "phone", $$v)
+                              },
+                              expression: "form.phone"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            id: "company",
+                            label: "Компания *:",
+                            "label-for": "company"
+                          }
+                        },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "company",
+                              type: "text",
+                              state: Boolean(_vm.form.company),
+                              required: "",
+                              placeholder: "Введите компанию"
+                            },
+                            model: {
+                              value: _vm.form.company,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "company", $$v)
+                              },
+                              expression: "form.company"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            id: "description",
+                            label: "Дополнительная информация *:",
+                            "label-for": "description"
+                          }
+                        },
+                        [
+                          _c("b-form-textarea", {
+                            attrs: {
+                              id: "description",
+                              type: "text",
+                              state: Boolean(_vm.form.description),
+                              required: "",
+                              placeholder: "Введите дополнительная информация"
+                            },
+                            model: {
+                              value: _vm.form.description,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "description", $$v)
+                              },
+                              expression: "form.description"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "fz-0" },
+                        [
+                          _c(
+                            "b-button",
+                            {
+                              staticClass: "btn-modal",
+                              attrs: { type: "submit", variant: "primary" }
+                            },
+                            [_vm._v("Добавить")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-button",
+                            {
+                              staticClass: "btn-modal",
+                              attrs: { type: "reset", variant: "danger" }
+                            },
+                            [_vm._v("Сбросить")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { attrs: { slot: "modal-footer" }, slot: "modal-footer" },
+            [
+              _c(
+                "b-btn",
+                {
+                  attrs: { size: "lg", variant: "primary" },
+                  on: {
+                    click: function($event) {
+                      _vm.modalShow = !_vm.modalShow
+                    }
+                  }
+                },
+                [_vm._v("\n\t\t\t    \tЗакрыть\n\t\t\t    ")]
+              )
+            ],
+            1
+          )
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1560c4ab", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

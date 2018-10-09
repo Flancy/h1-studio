@@ -46,9 +46,30 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
-        //
+        if($request->ajax()){
+            if($this->validator($request->all())) {
+                $user = User::create([
+                    'name' => $request['name'],
+                    'full_name' => $request['full_name'],
+                    'phone' => $request['phone'],
+                    'company' => $request['company'],
+                    'description' => $request['description'],
+                    'email' => $request['email'],
+                    'password' => Hash::make($request['password']),
+                ]);
+
+                $role = Role::find(2);
+                $role->users()->save($user);
+
+                return Response::json($user);
+            }
+
+            return Response::json(false);
+        }
+
+        return Response::json(false);
     }
 
     /**
@@ -100,5 +121,17 @@ class UsersController extends Controller
         }
 
         return Response::json(false);
+    }
+
+    protected function validator(array $data) {
+        return Validator::make($data, [
+            'name' => 'required|string|max:255|unique:users',
+            'full_name' => 'required|string|max:255',
+            'company' => 'required|string|max:255',
+            'phone' => 'required|string|max:255',
+            'description' => 'required|string|max:1024',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
     }
 }
