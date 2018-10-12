@@ -85,6 +85,7 @@ const app = new Vue({
             article: {},
             services: {},
             serviceId: null,
+            serviceTitle: null,
             moment: moment,
     	}
     },
@@ -141,8 +142,9 @@ const app = new Vue({
             }
         },
         //Услуги
-        modalService (id) {
+        modalService (id, title) {
             this.serviceId = id;
+            this.serviceTitle = title;
         },
         //Новости
         getArticlesInfo (id) {

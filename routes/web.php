@@ -27,6 +27,7 @@ Route::resource('articles', 'Articles\ArticlesController');
 
 //Услуги
 Route::resource('services', 'Services\ServicesController');
+Route::resource('services-storage', 'Services\ServicesStorageController');
 
 //Клиенты
 Route::resource('users', 'Users\UsersController')->middleware('admin');

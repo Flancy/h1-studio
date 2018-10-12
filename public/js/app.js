@@ -9348,7 +9348,7 @@ Vue.component('service-modal', __webpack_require__(373));
 //Клиенты
 Vue.component('user-index', __webpack_require__(376));
 Vue.component('user-create', __webpack_require__(379));
-Vue.component('user-show', __webpack_require__(385));
+Vue.component('user-show', __webpack_require__(382));
 
 var eventBus = new Vue();
 
@@ -9377,6 +9377,7 @@ var app = new Vue({
             article: {},
             services: {},
             serviceId: null,
+            serviceTitle: null,
             moment: moment
         };
     },
@@ -9430,8 +9431,9 @@ var app = new Vue({
         },
 
         //Услуги
-        modalService: function modalService(id) {
+        modalService: function modalService(id, title) {
             this.serviceId = id;
+            this.serviceTitle = title;
         },
 
         //Новости
@@ -36796,7 +36798,7 @@ var OBSERVER_CONFIG = {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(26);
-module.exports = __webpack_require__(382);
+module.exports = __webpack_require__(385);
 
 
 /***/ }),
@@ -82863,6 +82865,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			this.form.photo = '';
 
 			this.show = false;
+			this.showSuccess = false;
+			this.showError = false;
 			this.$nextTick(function () {
 				_this.show = true;
 			});
@@ -83494,7 +83498,7 @@ var render = function() {
                   attrs: { variant: "primary" },
                   on: {
                     click: function($event) {
-                      _vm.modalService(service.id)
+                      _vm.modalService(service.id, service.title)
                     }
                   }
                 },
@@ -83620,27 +83624,71 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ['serviceId'],
+	props: ['serviceId', 'serviceTitle'],
 	data: function data() {
 		return {
 			form: {
 				file: null,
 				email: null,
 				name: null,
-				comment: null,
-				service: null
+				description: null
 			},
-			show: true
+			show: true,
+			showError: false,
+			showSuccess: false,
+			errors: null,
+			formData: {}
 		};
 	},
 
+	filters: {
+		errorFilter: function errorFilter(value) {
+			if (!value) return '';
+			value = value.toString();
+			return value.replace(/\/r/g, '[]"');
+		}
+	},
 	methods: {
 		onSubmit: function onSubmit(evt) {
 			evt.preventDefault();
-			this.form.service = this.serviceId;
-			alert(JSON.stringify(this.form));
+			var th = this;
+			this.formData = new FormData();
+			this.formData.append('email', this.form.email);
+			this.formData.append('name', this.form.name);
+			this.formData.append('name_service', this.serviceTitle);
+			this.formData.append('description', this.form.description);
+			if (this.form.file !== null) {
+				this.formData.append('file', this.form.photo);
+			}
+			axios.post('/services-storage', this.formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(function (response) {
+				th.showSuccess = true;
+				th.showError = false;
+			}).catch(function (error) {
+				console.log(error);
+				th.errors = error.response.data;
+				th.showError = true;
+				th.showSuccess = false;
+			});
 		},
 		onReset: function onReset(evt) {
 			var _this = this;
@@ -83649,9 +83697,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			this.form.email = '';
 			this.form.name = '';
-			this.form.comment = '';
+			this.form.name_service = '';
+			this.form.description = '';
+			this.form.file = '';
 
 			this.show = false;
+			this.showSuccess = false;
+			this.showError = false;
 			this.$nextTick(function () {
 				_this.show = true;
 			});
@@ -83670,6 +83722,30 @@ var render = function() {
   return _c(
     "div",
     [
+      _vm.showError
+        ? _c(
+            "div",
+            { staticClass: "alert alert-warning", attrs: { role: "alert" } },
+            _vm._l(_vm.errors, function(error) {
+              return _c("p", [
+                _vm._v(
+                  "\n\t\t\t\t" +
+                    _vm._s(_vm._f("errorFilter")(error)) +
+                    "\n\t\t\t"
+                )
+              ])
+            })
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.showSuccess
+        ? _c(
+            "div",
+            { staticClass: "alert alert-success", attrs: { role: "alert" } },
+            [_vm._v("\n\t\t\tНовость успешно добавлена\n\t\t")]
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _vm.show
         ? _c(
             "b-form",
@@ -83739,26 +83815,20 @@ var render = function() {
                 "b-form-group",
                 {
                   attrs: {
-                    id: "comment",
-                    label: "Описание проекта *:",
-                    "label-for": "name"
+                    id: "name_service",
+                    label: "Услуга:",
+                    "label-for": "name_service"
                   }
                 },
                 [
-                  _c("b-form-textarea", {
+                  _c("b-form-input", {
                     attrs: {
-                      id: "comment",
+                      id: "name_service",
                       type: "text",
-                      state: Boolean(_vm.form.comment),
+                      value: _vm.serviceTitle,
+                      disabled: "",
                       required: "",
-                      placeholder: "Введите описание проекта"
-                    },
-                    model: {
-                      value: _vm.form.comment,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "comment", $$v)
-                      },
-                      expression: "form.comment"
+                      placeholder: _vm.serviceTitle
                     }
                   })
                 ],
@@ -83768,8 +83838,36 @@ var render = function() {
               _c(
                 "b-form-group",
                 {
-                  attrs: { id: "comment", label: "Файл:", "label-for": "name" }
+                  attrs: {
+                    id: "description",
+                    label: "Описание проекта *:",
+                    "label-for": "name"
+                  }
                 },
+                [
+                  _c("b-form-textarea", {
+                    attrs: {
+                      id: "description",
+                      type: "text",
+                      state: Boolean(_vm.form.description),
+                      required: "",
+                      placeholder: "Введите описание проекта"
+                    },
+                    model: {
+                      value: _vm.form.description,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "description", $$v)
+                      },
+                      expression: "form.description"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                { attrs: { id: "file", label: "Файл:", "label-for": "file" } },
                 [
                   _c("b-form-file", {
                     attrs: {
@@ -84496,6 +84594,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			this.form.password = '';
 
 			this.show = false;
+			this.showSuccess = false;
+			this.showError = false;
 			this.$nextTick(function () {
 				_this.show = true;
 			});
@@ -84892,22 +84992,14 @@ if (false) {
 
 /***/ }),
 /* 382 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 383 */,
-/* 384 */,
-/* 385 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(7)
 /* script */
-var __vue_script__ = __webpack_require__(386)
+var __vue_script__ = __webpack_require__(383)
 /* template */
-var __vue_template__ = __webpack_require__(387)
+var __vue_template__ = __webpack_require__(384)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -84946,7 +85038,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 386 */
+/* 383 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -84994,7 +85086,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 387 */
+/* 384 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -85082,6 +85174,12 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-4573b8ca", module.exports)
   }
 }
+
+/***/ }),
+/* 385 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

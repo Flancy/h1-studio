@@ -6,7 +6,7 @@
 				<h3 class="mb-0">{{ service.title }}</h3>
 				<p class="card-text mb-auto">{{ service.description }}</p>
 				<b-btn
-					@click="modalService(service.id)"
+					@click="modalService(service.id, service.title)"
 	                variant="primary"
 	                v-b-modal.modal-service>Обсудить проект</b-btn>
 			</div>

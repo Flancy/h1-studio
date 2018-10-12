@@ -51,7 +51,6 @@ class ArticlesController extends Controller
      */
     public function store(Request $request)
     {
-
         if(!Auth::user()->isAdmin()) {
             return redirect('home');
         }

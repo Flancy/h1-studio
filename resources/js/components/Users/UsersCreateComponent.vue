@@ -169,6 +169,8 @@
 				this.form.password = '';
 
 				this.show = false;
+				this.showSuccess = false;
+				this.showError = false;
 				this.$nextTick(() => { this.show = true });
 			}
         }

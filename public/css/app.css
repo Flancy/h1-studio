@@ -13666,6 +13666,9 @@ a.text-dark:focus {
   color: #fff;
   text-decoration: none;
 }
+.services .card-body {
+  width: 100%;
+}
 .services .card-title {
   font-size: 1.15rem;
 }
