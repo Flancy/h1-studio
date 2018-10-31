@@ -57,7 +57,8 @@ Vue.component('service-modal', require('./components/Services/ServicesModalCompo
 Vue.component('user-index', require('./components/Users/UsersIndexComponent.vue'));
 Vue.component('user-create', require('./components/Users/UsersCreateComponent.vue'));
 Vue.component('user-show', require('./components/Users/UsersShowComponent.vue'));
-
+//Проекты
+Vue.component('project-index', require('./components/Projects/ProjectIndexComponent.vue'));
 export const eventBus = new Vue();
 
 const app = new Vue({

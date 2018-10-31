@@ -30,4 +30,8 @@ Route::resource('services', 'Services\ServicesController');
 Route::resource('services-storage', 'Services\ServicesStorageController');
 
 //Клиенты
-Route::resource('users', 'Users\UsersController')->middleware('admin');
+Route::resource('users', 'Users\UsersController');
+
+//Проекты
+Route::resource('projects', 'Projects\ProjectsController');
+Route::get('project/{id}', 'Projects\ProjectsController@getAllProjects')->name('project');
