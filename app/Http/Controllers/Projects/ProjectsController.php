@@ -19,10 +19,6 @@ class ProjectsController extends Controller
      */
     public function getAllProjects($id, Request $request)
     {
-        $user = Auth::user();
-        if($user->isAdmin()) {
-            $projects = $user->projects;
-        }
         $user = User::findOrFail($id);
         $projects = $user->projects;
 
@@ -49,7 +45,20 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->ajax()){
+            $project = Projects::create([
+                'title' => $request['title'],
+                'service_name' => $request['service_name'],
+                'description' => $request['description'],
+            ]);
+
+            $user = User::findOrFail($request['id']);
+            $project->users()->save($user);
+
+            return Response::json($project);
+        }
+
+        return Response::json(false);
     }
 
     /**

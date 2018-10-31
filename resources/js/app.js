@@ -32,7 +32,6 @@ Vue.use(VueScrollTo, {
 });
 //Moment
 var moment = require('moment');
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -59,6 +58,7 @@ Vue.component('user-create', require('./components/Users/UsersCreateComponent.vu
 Vue.component('user-show', require('./components/Users/UsersShowComponent.vue'));
 //Проекты
 Vue.component('project-index', require('./components/Projects/ProjectIndexComponent.vue'));
+Vue.component('project-create', require('./components/Projects/ProjectCreateComponent.vue'));
 export const eventBus = new Vue();
 
 const app = new Vue({

@@ -24,7 +24,8 @@
 </template>
 
 <script>
-	import {eventBus} from '../../app.js'
+	import {eventBus} from '../../app.js';
+
 	export default {
         data () {
         	return {
@@ -33,6 +34,9 @@
         },
 		created () {
 			this.getProjects();
+            eventBus.$on("projectCreate", (project) => {
+                this.addProjectInToTable(project);
+            });
 		},
         methods: {
 	        getProjects() {
@@ -48,6 +52,9 @@
         				console.log(error);
         			});
 	        },
+            addProjectInToTable(project) {
+                this.projects.unshift(project);
+            }
         }
     }
 </script>
