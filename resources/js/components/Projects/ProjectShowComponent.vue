@@ -55,15 +55,61 @@
                 return this.todos.filter(todo => !todo.completed).length;
             }
         },
+        created () {
+            this.getTodoList();
+        },
         methods: {
+            getTodoList() {
+                let th = this,
+                    pathArray = window.location.pathname.split( '/' ),
+                    secondLevelLocation = pathArray[2];
+                axios.get('/project_checklist/'+secondLevelLocation)
+                    .then(response => {
+                        th.projects = response.data;
+
+                        for (var i = response.data.length - 1; i >= 0; i--) {
+                            if(response.data[i].type == 'new') {
+                                let todo = {
+                                    id: response.data[i].id,
+                                    text: response.data[i].description,
+                                    completed: response.data[i].status,
+                                    components: false,
+                                    editing: false
+                                };
+                                this.todos.push(todo);
+                            }
+                        }
+
+                        if(th.last_id = response.data.length != undefined) {
+                            th.last_id = response.data.length;
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            },
 	        addTodo() {
                 if (this.newTodo.trim() == "") return;
+                let pathArray = window.location.pathname.split( '/' ),
+                    secondLevelLocation = pathArray[2];
                 let todo = {
                     id: ++this.last_id,
+                    projects_id: secondLevelLocation,
+                    status: false,
+                    description: this.newTodo,
                     text: this.newTodo,
+                    type: 'new',
                     components: false,
                     editing: false
+
                 };
+                axios.post('/checklist', {todo})
+                    .then(response => {
+                        console.log(response.data);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
                 this.todos.push(todo);
                 this.newTodo = "";
             },
@@ -237,7 +283,7 @@ footer {
   content: "";
   display: inline-block;
   position: absolute;
-  top: 3px;
+  top: 0;
   left: -1px;
   width: 5px;
   height: 10px;

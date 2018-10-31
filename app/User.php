@@ -38,6 +38,11 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Projects')->withTimestamps();
     }
 
+    public function checklists()
+    {
+        return $this->belongsToMany('App\ChecklistsUser')->withTimestamps();
+    }
+
     public function isAdmin() {
         return $this->roles()->where('role_id', '1')->exists();
     }

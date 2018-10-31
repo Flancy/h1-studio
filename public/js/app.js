@@ -91505,15 +91505,60 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).length;
         }
     },
+    created: function created() {
+        this.getTodoList();
+    },
+
     methods: {
+        getTodoList: function getTodoList() {
+            var _this = this;
+
+            var th = this,
+                pathArray = window.location.pathname.split('/'),
+                secondLevelLocation = pathArray[2];
+            axios.get('/project_checklist/' + secondLevelLocation).then(function (response) {
+                th.projects = response.data;
+
+                for (var i = response.data.length - 1; i >= 0; i--) {
+                    if (response.data[i].type == 'new') {
+                        var todo = {
+                            id: response.data[i].id,
+                            text: response.data[i].description,
+                            completed: response.data[i].status,
+                            components: false,
+                            editing: false
+                        };
+                        _this.todos.push(todo);
+                    }
+                }
+
+                if (th.last_id = response.data.length != undefined) {
+                    th.last_id = response.data.length;
+                }
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
         addTodo: function addTodo() {
             if (this.newTodo.trim() == "") return;
+            var pathArray = window.location.pathname.split('/'),
+                secondLevelLocation = pathArray[2];
             var todo = {
                 id: ++this.last_id,
+                projects_id: secondLevelLocation,
+                status: false,
+                description: this.newTodo,
                 text: this.newTodo,
+                type: 'new',
                 components: false,
                 editing: false
+
             };
+            axios.post('/checklist', { todo: todo }).then(function (response) {
+                console.log(response.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
             this.todos.push(todo);
             this.newTodo = "";
         },
@@ -91726,7 +91771,7 @@ exports = module.exports = __webpack_require__(22)(false);
 
 
 // module
-exports.push([module.i, "\n.card-header.primary[data-v-12dcc621] {\r\n    background-color: #3490dc;\r\n    color: #ffffff;\n}\n.container[data-v-12dcc621] {\r\n  min-height: 300px;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\n}\nfooter[data-v-12dcc621] {\r\n  padding: 8px 15px;\r\n  background: #76dbae;\r\n  border-radius: 3px;\n}\n.todo-list[data-v-12dcc621] {\r\n  padding: 8px 0;\n}\n.todo-list .list[data-v-12dcc621]:hover {\r\n  background: #f7fcfa;\n}\n.todo-list .list[data-v-12dcc621] {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  padding: 0 15px;\n}\n.todo-list .list .text[data-v-12dcc621] {\r\n  padding: 0 8px;\r\n  height: 35px;\r\n  line-height: 35px;\r\n  margin: 6px 0;\r\n  cursor: default;\r\n  -webkit-box-flex: 1;\r\n      -ms-flex: 1;\r\n          flex: 1;\n}\n.todo-list .list .text.completed[data-v-12dcc621] {\r\n  text-decoration: line-through;\n}\n.input__div[data-v-12dcc621] {\r\n  margin: 6px 0;\r\n  position: relative;\r\n  border: 1px solid #e4f5ef;\r\n  -webkit-box-flex: 1;\r\n      -ms-flex: 1;\r\n          flex: 1;\n}\n.input__div:focus-within .input__wrapper[data-v-12dcc621] {\r\n  background: #fff;\n}\n.input__div .input__wrapper[data-v-12dcc621] {\r\n  background: #f7fcfa;\r\n  padding: 0 15px;\r\n  -webkit-transition: background 0.3s;\r\n  transition: background 0.3s;\n}\n.input__div .input__wrapper input[data-v-12dcc621] {\r\n  height: 35px;\r\n  background: 0 0;\r\n  border: none;\r\n  color: #2c3e50;\r\n  display: block;\r\n  font-family: inherit;\r\n  font-size: 16px;\r\n  line-height: 16px;\r\n  outline: 0;\r\n  padding: 0;\r\n  position: relative;\r\n  width: 100%;\r\n  z-index: 1;\n}\n.input__div .border[data-v-12dcc621] {\r\n  background: #42b983;\r\n  -webkit-transition: all 0.18s;\r\n  transition: all 0.18s;\r\n  bottom: -1px;\r\n  height: 2px;\r\n  left: 30%;\r\n  opacity: 0;\r\n  pointer-events: none;\r\n  position: absolute;\r\n  right: 30%;\n}\n.input__div:focus-within .border[data-v-12dcc621] {\r\n  left: 0;\r\n  right: 0;\r\n  opacity: 1;\n}\n.material-checkbox[data-v-12dcc621] {\r\n  position: relative;\r\n  display: inline-block;\r\n  color: rgba(0, 0, 0, 0.87);\r\n  cursor: pointer;\r\n  font-size: 14px;\r\n  line-height: 11px;\r\n  margin-bottom: 0;\n}\n.material-checkbox > input[data-v-12dcc621] {\r\n  appearance: none;\r\n  -moz-appearance: none;\r\n  -webkit-appearance: none;\r\n  position: absolute;\r\n  z-index: -1;\r\n  left: -5px;\r\n  top: -5px;\r\n  display: block;\r\n  margin: 0;\r\n  border-radius: 50%;\r\n  width: 18px;\r\n  height: 18px;\r\n  background-color: rgba(0, 0, 0, 0.42);\r\n  outline: none;\r\n  opacity: 0;\r\n  -webkit-transform: scale(1);\r\n          transform: scale(1);\r\n  -ms-transform: scale(0); /* Graceful degradation for IE */\r\n  -webkit-transition: opacity 0.5s, -webkit-transform 0.5s;\r\n  transition: opacity 0.5s, -webkit-transform 0.5s;\r\n  transition: opacity 0.5s, transform 0.5s;\r\n  transition: opacity 0.5s, transform 0.5s, -webkit-transform 0.5s;\n}\n.material-checkbox > input[data-v-12dcc621]:checked {\r\n  background-color: #2196f3;\n}\n.material-checkbox > input[data-v-12dcc621]:disabled {\r\n  opacity: 0;\n}\n.material-checkbox > input:disabled + span[data-v-12dcc621] {\r\n  cursor: initial;\n}\n.material-checkbox > span[data-v-12dcc621]::before {\r\n  content: \"\";\r\n  display: inline-block;\r\n  margin-right: 15px;\r\n  border: solid 2px rgba(0, 0, 0, 0.42);\r\n  border-radius: 2px;\r\n  width: 14px;\r\n  height: 14px;\r\n  vertical-align: -4px;\r\n  -webkit-transition: border-color 0.5s, background-color 0.5s;\r\n  transition: border-color 0.5s, background-color 0.5s;\n}\n.material-checkbox > input:checked + span[data-v-12dcc621]::before {\r\n  border-color: #41b883;\r\n  background-color: #41b883;\n}\n.material-checkbox > input:active + span[data-v-12dcc621]::before {\r\n  border-color: #41b883;\n}\n.material-checkbox > input:checked:active + span[data-v-12dcc621]::before {\r\n  border-color: transparent;\r\n  background-color: rgba(0, 0, 0, 0.42);\n}\n.material-checkbox > span[data-v-12dcc621]::after {\r\n  content: \"\";\r\n  display: inline-block;\r\n  position: absolute;\r\n  top: 3px;\r\n  left: -1px;\r\n  width: 5px;\r\n  height: 10px;\r\n  border: solid 2px transparent;\r\n  border-left: none;\r\n  border-top: none;\r\n  -webkit-transform: translate(5.5px, 1px) rotate(45deg);\r\n          transform: translate(5.5px, 1px) rotate(45deg);\r\n  -ms-transform: translate(5.5px, 2px) rotate(45deg);\n}\n.material-checkbox > input:checked + span[data-v-12dcc621]::after {\r\n  border-color: #fff;\n}\r\n", ""]);
+exports.push([module.i, "\n.card-header.primary[data-v-12dcc621] {\r\n    background-color: #3490dc;\r\n    color: #ffffff;\n}\n.container[data-v-12dcc621] {\r\n  min-height: 300px;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\n}\nfooter[data-v-12dcc621] {\r\n  padding: 8px 15px;\r\n  background: #76dbae;\r\n  border-radius: 3px;\n}\n.todo-list[data-v-12dcc621] {\r\n  padding: 8px 0;\n}\n.todo-list .list[data-v-12dcc621]:hover {\r\n  background: #f7fcfa;\n}\n.todo-list .list[data-v-12dcc621] {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  padding: 0 15px;\n}\n.todo-list .list .text[data-v-12dcc621] {\r\n  padding: 0 8px;\r\n  height: 35px;\r\n  line-height: 35px;\r\n  margin: 6px 0;\r\n  cursor: default;\r\n  -webkit-box-flex: 1;\r\n      -ms-flex: 1;\r\n          flex: 1;\n}\n.todo-list .list .text.completed[data-v-12dcc621] {\r\n  text-decoration: line-through;\n}\n.input__div[data-v-12dcc621] {\r\n  margin: 6px 0;\r\n  position: relative;\r\n  border: 1px solid #e4f5ef;\r\n  -webkit-box-flex: 1;\r\n      -ms-flex: 1;\r\n          flex: 1;\n}\n.input__div:focus-within .input__wrapper[data-v-12dcc621] {\r\n  background: #fff;\n}\n.input__div .input__wrapper[data-v-12dcc621] {\r\n  background: #f7fcfa;\r\n  padding: 0 15px;\r\n  -webkit-transition: background 0.3s;\r\n  transition: background 0.3s;\n}\n.input__div .input__wrapper input[data-v-12dcc621] {\r\n  height: 35px;\r\n  background: 0 0;\r\n  border: none;\r\n  color: #2c3e50;\r\n  display: block;\r\n  font-family: inherit;\r\n  font-size: 16px;\r\n  line-height: 16px;\r\n  outline: 0;\r\n  padding: 0;\r\n  position: relative;\r\n  width: 100%;\r\n  z-index: 1;\n}\n.input__div .border[data-v-12dcc621] {\r\n  background: #42b983;\r\n  -webkit-transition: all 0.18s;\r\n  transition: all 0.18s;\r\n  bottom: -1px;\r\n  height: 2px;\r\n  left: 30%;\r\n  opacity: 0;\r\n  pointer-events: none;\r\n  position: absolute;\r\n  right: 30%;\n}\n.input__div:focus-within .border[data-v-12dcc621] {\r\n  left: 0;\r\n  right: 0;\r\n  opacity: 1;\n}\n.material-checkbox[data-v-12dcc621] {\r\n  position: relative;\r\n  display: inline-block;\r\n  color: rgba(0, 0, 0, 0.87);\r\n  cursor: pointer;\r\n  font-size: 14px;\r\n  line-height: 11px;\r\n  margin-bottom: 0;\n}\n.material-checkbox > input[data-v-12dcc621] {\r\n  appearance: none;\r\n  -moz-appearance: none;\r\n  -webkit-appearance: none;\r\n  position: absolute;\r\n  z-index: -1;\r\n  left: -5px;\r\n  top: -5px;\r\n  display: block;\r\n  margin: 0;\r\n  border-radius: 50%;\r\n  width: 18px;\r\n  height: 18px;\r\n  background-color: rgba(0, 0, 0, 0.42);\r\n  outline: none;\r\n  opacity: 0;\r\n  -webkit-transform: scale(1);\r\n          transform: scale(1);\r\n  -ms-transform: scale(0); /* Graceful degradation for IE */\r\n  -webkit-transition: opacity 0.5s, -webkit-transform 0.5s;\r\n  transition: opacity 0.5s, -webkit-transform 0.5s;\r\n  transition: opacity 0.5s, transform 0.5s;\r\n  transition: opacity 0.5s, transform 0.5s, -webkit-transform 0.5s;\n}\n.material-checkbox > input[data-v-12dcc621]:checked {\r\n  background-color: #2196f3;\n}\n.material-checkbox > input[data-v-12dcc621]:disabled {\r\n  opacity: 0;\n}\n.material-checkbox > input:disabled + span[data-v-12dcc621] {\r\n  cursor: initial;\n}\n.material-checkbox > span[data-v-12dcc621]::before {\r\n  content: \"\";\r\n  display: inline-block;\r\n  margin-right: 15px;\r\n  border: solid 2px rgba(0, 0, 0, 0.42);\r\n  border-radius: 2px;\r\n  width: 14px;\r\n  height: 14px;\r\n  vertical-align: -4px;\r\n  -webkit-transition: border-color 0.5s, background-color 0.5s;\r\n  transition: border-color 0.5s, background-color 0.5s;\n}\n.material-checkbox > input:checked + span[data-v-12dcc621]::before {\r\n  border-color: #41b883;\r\n  background-color: #41b883;\n}\n.material-checkbox > input:active + span[data-v-12dcc621]::before {\r\n  border-color: #41b883;\n}\n.material-checkbox > input:checked:active + span[data-v-12dcc621]::before {\r\n  border-color: transparent;\r\n  background-color: rgba(0, 0, 0, 0.42);\n}\n.material-checkbox > span[data-v-12dcc621]::after {\r\n  content: \"\";\r\n  display: inline-block;\r\n  position: absolute;\r\n  top: 0;\r\n  left: -1px;\r\n  width: 5px;\r\n  height: 10px;\r\n  border: solid 2px transparent;\r\n  border-left: none;\r\n  border-top: none;\r\n  -webkit-transform: translate(5.5px, 1px) rotate(45deg);\r\n          transform: translate(5.5px, 1px) rotate(45deg);\r\n  -ms-transform: translate(5.5px, 2px) rotate(45deg);\n}\n.material-checkbox > input:checked + span[data-v-12dcc621]::after {\r\n  border-color: #fff;\n}\r\n", ""]);
 
 // exports
 

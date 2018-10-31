@@ -35,3 +35,7 @@ Route::resource('users', 'Users\UsersController');
 //Проекты
 Route::resource('projects', 'Projects\ProjectsController');
 Route::get('project/{id}', 'Projects\ProjectsController@getAllProjects')->name('project');
+Route::get('project_checklist/{id}', 'Checklist\ChecklistController@getAllChecklist')->name('project_checklist');
+
+//Чеклисты
+Route::resource('checklist', 'Checklist\ChecklistController');

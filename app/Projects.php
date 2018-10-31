@@ -19,4 +19,9 @@ class Projects extends Model
     {
         return $this->belongsToMany('App\ProjectsUser')->withTimestamps();
     }
+
+    public function checklists()
+    {
+        return $this->belongsToMany('App\ChecklistsUser')->withTimestamps();
+    }
 }
