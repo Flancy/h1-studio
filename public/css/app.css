@@ -13535,6 +13535,16 @@ a.text-dark:focus {
 .fz-0 {
   font-size: 0;
 }
+.state-icon {
+  left: -5px;
+}
+.list-group-item-primary {
+  color: #fff;
+  background-color: #428bca;
+}
+.well .list-group {
+  margin-bottom: 0px;
+}
 .nav-photo {
   max-width: 35px;
   max-height: 100%;

@@ -4,7 +4,9 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <project-index></project-index>
-            <project-create></project-create>
+            @if (Auth::user()->isAdmin())
+            	<project-create></project-create>
+            @endif
         </div>
         <div class="col-md-6">
             <user-show></user-show>

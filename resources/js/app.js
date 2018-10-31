@@ -59,6 +59,8 @@ Vue.component('user-show', require('./components/Users/UsersShowComponent.vue'))
 //Проекты
 Vue.component('project-index', require('./components/Projects/ProjectIndexComponent.vue'));
 Vue.component('project-create', require('./components/Projects/ProjectCreateComponent.vue'));
+Vue.component('project-show', require('./components/Projects/ProjectShowComponent.vue'));
+Vue.component('project-show2', require('./components/Projects/ProjectShowComponent2.vue'));
 export const eventBus = new Vue();
 
 const app = new Vue({
@@ -171,5 +173,5 @@ const app = new Vue({
         closeModalService() {
             this.$root.$emit('bv::hide::modal','modal-service');
         }
-    },
+    }
 });

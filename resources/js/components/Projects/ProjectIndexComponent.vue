@@ -16,7 +16,7 @@
 			    	{{ project.title }}
 		    	</td>
 		        <td class="th-center">
-		            <b-btn variant="outline-info"><a :href="'projects/'+project.id">Подробнее</a></b-btn>
+		            <b-btn variant="outline-info" :href="'../projects/'+project.id">Подробнее</b-btn>
 		        </td>
 		    </tr>
 		</tbody>

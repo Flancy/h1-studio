@@ -60,6 +60,7 @@
                                     @else
                                         <a class="dropdown-item" href="{{ route('articles.index') }}">Новости</a>
                                         <a class="dropdown-item" href="{{ route('services.index') }}">Услуги</a>
+                                        <a class="dropdown-item" href="{{ route('users.show', Auth::id()) }}">Проекты</a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
