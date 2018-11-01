@@ -1,4 +1,4 @@
-<h2>Новое сообщение</h2>
+<h5>Новое сообщение</h5>
 <form action="{{ route('messages.update', $thread->id) }}" method="post">
     {{ method_field('put') }}
     {{ csrf_field() }}

@@ -15,6 +15,13 @@ use App\Http\Controllers\Controller;
 
 class UsersController extends Controller
 {
+    public function getAllUsers(Request $request)
+    {
+        if($request->ajax()){
+            $users = User::all();
+            return Response::json($users);
+        }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -23,8 +30,8 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         $users = DB::table('users')->orderBy('created_at', 'desc')->paginate(9);
+
         if($request->ajax()){
-            $users = User::all();
             return Response::json($users);
         }
         

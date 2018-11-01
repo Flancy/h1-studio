@@ -1,6 +1,6 @@
 <?php $class = $thread->isUnread(Auth::id()) ? 'alert-info' : ''; ?>
 
-<div class="col-md-4">
+<div class="col-md-4 mb-5">
     <div class="card">
         <h5 class="card-header {{ $class }}">
             Тема: <a href="{{ route('messages.show', $thread->id) }}">{{ $thread->subject }}</a>

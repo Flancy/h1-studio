@@ -71,6 +71,10 @@ class ProjectsController extends Controller
     {
         $projects = $projects->find($id);
 
+        if($request->ajax()){
+            return Response::json($projects);
+        }
+
         return view('projects.show', ['projects' => $projects]);
     }
 

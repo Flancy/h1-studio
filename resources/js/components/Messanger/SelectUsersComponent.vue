@@ -27,7 +27,7 @@
         methods: {
         	getUsers () {
         		let th = this;
-				axios.get('/users')
+				axios.get('/user_list')
 		    		.then(response => {
 		    			for (var i = response.data.length - 1; i >= 0; i--) {
 		    				th.users.push({

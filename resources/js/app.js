@@ -59,8 +59,10 @@ Vue.component('user-show', require('./components/Users/UsersShowComponent.vue'))
 //Проекты
 Vue.component('project-index', require('./components/Projects/ProjectIndexComponent.vue'));
 Vue.component('project-create', require('./components/Projects/ProjectCreateComponent.vue'));
-Vue.component('project-show', require('./components/Projects/ProjectShowComponent.vue'));
-Vue.component('project-show2', require('./components/Projects/ProjectShowComponent2.vue'));
+Vue.component('project-detail', require('./components/Projects/ProjectDetailComponent.vue'));
+Vue.component('project-show_new', require('./components/Projects/ProjectShowNewComponent.vue'));
+Vue.component('project-show_inwork', require('./components/Projects/ProjectShowInworkComponent.vue'));
+Vue.component('project-show_success', require('./components/Projects/ProjectShowSuccessComponent.vue'));
 //Сообщения
 export const eventBus = new Vue();
 Vue.component('select-users', require('./components/Messanger/SelectUsersComponent.vue'));

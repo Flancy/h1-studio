@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <h5 class="card-header primary">Цели и задачи</h5>
+        <h5 class="card-header bg-warning">Выполняется</h5>
         <div class="card-body">
             <div class="container">
                 <div style="flex: 1;">
@@ -39,16 +39,16 @@
 </template>
 
 <script>
-	import {eventBus} from '../../app.js';
+    import {eventBus} from '../../app.js';
 
-	export default {
+    export default {
         data () {
-        	return {
-        		last_id: 0,
+            return {
+                last_id: 0,
                 newTodo: "",
                 editTodoCache: "",
                 todos: []
-        	}
+            }
         },
         computed: {
             remaining() {
@@ -68,7 +68,7 @@
                         th.projects = response.data;
 
                         for (var i = response.data.length - 1; i >= 0; i--) {
-                            if(response.data[i].type == 'new') {
+                            if(response.data[i].type == 'inwork') {
                                 let todo = {
                                     id: response.data[i].id,
                                     text: response.data[i].description,
@@ -88,7 +88,7 @@
                         console.log(error);
                     });
             },
-	        addTodo() {
+            addTodo() {
                 if (this.newTodo.trim() == "") return;
                 let pathArray = window.location.pathname.split( '/' ),
                     secondLevelLocation = pathArray[2];
@@ -98,7 +98,7 @@
                     status: false,
                     description: this.newTodo,
                     text: this.newTodo,
-                    type: 'new',
+                    type: 'inwork',
                     components: false,
                     editing: false
 

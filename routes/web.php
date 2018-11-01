@@ -31,6 +31,7 @@ Route::resource('services-storage', 'Services\ServicesStorageController');
 
 //Клиенты
 Route::resource('users', 'Users\UsersController');
+Route::get('user_list', 'Users\UsersController@getAllUsers')->name('user_list');
 
 //Проекты
 Route::resource('projects', 'Projects\ProjectsController');

@@ -96,7 +96,7 @@
 	        getUsers() {
 	        	let th = this
         			this.page = window.location.search;
-        		axios.get('/users/'+th.page)
+        		axios.get('/users'+th.page)
         			.then(response => {
         				th.users = response.data;
         			})
