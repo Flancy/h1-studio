@@ -41,6 +41,9 @@ Route::get('project_checklist/{id}', 'Checklist\ChecklistController@getAllCheckl
 //Чеклисты
 Route::resource('checklist', 'Checklist\ChecklistController');
 
+//Файлы
+Route::resource('files', 'Files\FilesController');
+
 //Сообщения
 Route::group(['prefix' => 'messages'], function () {
     Route::get('/', ['as' => 'messages', 'uses' => 'MessagesController@index']);

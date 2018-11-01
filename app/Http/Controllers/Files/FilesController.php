@@ -1,38 +1,30 @@
 <?php
 
-namespace App\Http\Controllers\Projects;
+namespace App\Http\Controllers\Files;
 
-use App\User;
-use App\Projects;
-use App\ProjectsUser;
+use App\Files;
 use Response;
-use Illuminate\Support\Facades\Auth;;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ProjectsController extends Controller
+class FilesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function getAllProjects($id, Request $request)
-    {
-        $user = User::findOrFail($id);
-        $projects = $user->projects;
-
-        if($request->ajax()){
-            return Response::json($projects);
-        }
-    }
-
     public function index(Request $request)
     {
+        $files = DB::table('files')->orderBy('created_at', 'desc')->paginate(9);
+
         if($request->ajax()){
-            $projects = Projects::all();
-            return Response::json($projects);
+            return Response::json($files);
         }
+        
+        return view('files.index', ['files' => $files]);
     }
 
     /**
@@ -53,20 +45,24 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->ajax()){
-            $project = Projects::create([
-                'title' => $request['title'],
-                'service_name' => $request['service_name'],
-                'description' => $request['description'],
-            ]);
+        $files = new Files();
 
-            $user = User::findOrFail($request['id']);
-            $project->users()->save($user);
-
-            return Response::json($project);
+        if($request->hasFile('file')){
+            $filename = md5(microtime()).$request->file->getClientOriginalName();
+            $request->file('file')->storeAs(
+                '/public/file', $filename
+            );
+            $path = '/public/storage/file/'.$filename;
+        } else {
+            return Response::json(false);
         }
 
-        return Response::json(false);
+        return $files::create([
+            'projects_id' => $request['projects_id'],
+            'name' => $request['name'],
+            'type' => $request->file->getClientOriginalExtension(),
+            'src' => $path
+        ]);
     }
 
     /**
@@ -75,15 +71,9 @@ class ProjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, Request $request, Projects $projects)
+    public function show(Request $request, $id, Files $files)
     {
-        $projects = $projects->find($id);
-
-        if($request->ajax()){
-            return Response::json($projects);
-        }
-
-        return view('projects.show', ['projects' => $projects]);
+        
     }
 
     /**
@@ -115,8 +105,14 @@ class ProjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Files $files)
     {
-        //
+        $files = $files->find($id)->delete(); 
+
+        if($files) {
+            return Response::json(true);
+        }
+
+        return Response::json(false);
     }
 }

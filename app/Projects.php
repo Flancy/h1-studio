@@ -24,4 +24,9 @@ class Projects extends Model
     {
         return $this->belongsToMany('App\ChecklistsUser')->withTimestamps();
     }
+
+    public function file()
+    {
+        return $this->belongsTo('App\Files');
+    }
 }

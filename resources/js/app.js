@@ -64,8 +64,12 @@ Vue.component('project-show_new', require('./components/Projects/ProjectShowNewC
 Vue.component('project-show_inwork', require('./components/Projects/ProjectShowInworkComponent.vue'));
 Vue.component('project-show_success', require('./components/Projects/ProjectShowSuccessComponent.vue'));
 //Сообщения
-export const eventBus = new Vue();
 Vue.component('select-users', require('./components/Messanger/SelectUsersComponent.vue'));
+//Файлы
+Vue.component('files-index', require('./components/Files/FilesIndexComponent.vue'));
+Vue.component('files-create', require('./components/Files/FilesCreateComponent.vue'));
+
+export const eventBus = new Vue();
 
 const app = new Vue({
     el: '#app',
