@@ -55,12 +55,16 @@
                                         <a class="dropdown-item" href="{{ route('orders.index') }}">Заявки</a>
                                         <a class="dropdown-item" href="{{ route('services.index') }}">Услуги</a>
                                         <a class="dropdown-item" href="{{ route('users.index') }}">Клиенты</a>
+                                        <a class="dropdown-item" href="{{ route('messages') }}">Сообщения @include('messenger.unread-count')</a>
+                                            <a class="dropdown-item dropdown-item_pdl" href="{{ route('messages.create') }}">Новое сообщение</a>
                                         <a class="dropdown-item" href="{{ route('articles.index') }}">Новости</a>
-                                        <a class="dropdown-item dropdown-item_pdl" href="{{ route('articles.create') }}">Добавить новость</a>
+                                            <a class="dropdown-item dropdown-item_pdl" href="{{ route('articles.create') }}">Добавить новость</a>
                                     @else
                                         <a class="dropdown-item" href="{{ route('articles.index') }}">Новости</a>
                                         <a class="dropdown-item" href="{{ route('services.index') }}">Услуги</a>
                                         <a class="dropdown-item" href="{{ route('users.show', Auth::id()) }}">Проекты</a>
+                                        <a class="dropdown-item" href="{{ route('messages') }}">Сообщения @include('messenger.unread-count')</a>
+                                            <a class="dropdown-item dropdown-item_pdl" href="{{ route('messages.create') }}">Новое сообщение</a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

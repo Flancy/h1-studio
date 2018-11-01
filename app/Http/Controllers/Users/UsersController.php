@@ -24,6 +24,7 @@ class UsersController extends Controller
     {
         $users = DB::table('users')->orderBy('created_at', 'desc')->paginate(9);
         if($request->ajax()){
+            $users = User::all();
             return Response::json($users);
         }
         

@@ -61,7 +61,9 @@ Vue.component('project-index', require('./components/Projects/ProjectIndexCompon
 Vue.component('project-create', require('./components/Projects/ProjectCreateComponent.vue'));
 Vue.component('project-show', require('./components/Projects/ProjectShowComponent.vue'));
 Vue.component('project-show2', require('./components/Projects/ProjectShowComponent2.vue'));
+//Сообщения
 export const eventBus = new Vue();
+Vue.component('select-users', require('./components/Messanger/SelectUsersComponent.vue'));
 
 const app = new Vue({
     el: '#app',
